@@ -26,7 +26,7 @@
         "url": "https://glauberbarcelos.com.br/",
         "image": {
           "@type": "ImageObject",
-          "url": "https://glauberbarcelos.com.br/img/glauber2.png",
+          "url": "https://glauberbarcelos.com.br/img/glauber3.png",
           "width": 1536,
           "height": 1024
         },
@@ -62,7 +62,7 @@
         "url": "https://glauberbarcelos.com.br/",
         "telephone": "+5551980120387",
         "email": "ggbarcelos@gmail.com",
-        "image": "https://glauberbarcelos.com.br/img/glauber2.png",
+        "image": "https://glauberbarcelos.com.br/img/glauber3.png",
         "priceRange": "$$",
         "currenciesAccepted": "BRL",
         "paymentAccepted": "PIX, Transferência bancária",
