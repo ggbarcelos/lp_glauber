@@ -466,8 +466,8 @@ img { max-width: 100%; height: auto; display: block; }
 .about-stats-bar {
     position: absolute;
     bottom: 0;
-    left: 10px;
-    right: 10px;
+    left: 0;
+    right: 0;
     background: #fff;
     border-radius: var(--radius-md);
     padding: 1.1rem 1.25rem;
