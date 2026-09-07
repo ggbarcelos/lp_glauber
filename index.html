@@ -33,10 +33,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=20260907">
     <script src="js/schema.js"></script>
 </head>
 <body>
+    <a class="skip-link" href="#conteudo" data-i18n="skip_content">Pular para o conteúdo</a>
     <div class="site-noise" aria-hidden="true"></div>
 
     <nav class="site-nav" aria-label="Navegação principal">
@@ -105,7 +106,7 @@
         <a class="scroll-cue" href="#solucoes" aria-label="Ir para soluções"><span data-i18n="hero_scroll">explorar</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
     </header>
 
-    <main>
+    <main id="conteudo" tabindex="-1">
         <section class="signal-strip" aria-label="Áreas de atuação">
             <div class="shell signal-inner">
                 <span class="signal-label" data-i18n="signal_label">ONDE A TECNOLOGIA ENCONTRA O NEGÓCIO</span>
@@ -123,7 +124,7 @@
                 <div class="about-media reveal">
                     <div class="about-visual-meta">
                         <span data-i18n="about_visual_label">PERFIL / ENGENHARIA &amp; PRODUTO</span>
-                        <span>02 — 04</span>
+                        <span>01 — 04</span>
                     </div>
                     <figure class="about-portrait-card">
                         <div class="about-portrait-stage">
@@ -141,7 +142,7 @@
                     </div>
                 </div>
                 <div class="about-copy reveal reveal-delay">
-                    <div class="about-heading-line"><p class="section-kicker" data-i18n="about_kicker">A pessoa por trás do produto</p><span aria-hidden="true">02 / 04</span></div>
+                    <div class="about-heading-line"><p class="section-kicker" data-i18n="about_kicker">A pessoa por trás do produto</p><span aria-hidden="true">01 / 04</span></div>
                     <h2 data-i18n="about_title">Tecnologia boa é a que deixa o negócio mais forte.</h2>
                     <p data-i18n="about_p1">Sou Glauber Barcelos, engenheiro de software sênior. Ao longo de mais de duas décadas, atuei em produtos digitais, saúde, startups, operações críticas e plataformas que precisam funcionar de verdade.</p>
                     <p data-i18n="about_p2">Meu trabalho combina visão de produto, arquitetura, execução hands-on e comunicação clara. Eu entro para organizar o problema, escolher o caminho certo e entregar a solução completa — sem traduzir cada decisão para uma cadeia de fornecedores.</p>
@@ -159,7 +160,7 @@
             <div class="shell">
                 <div class="services-head reveal">
                     <div class="services-head-main">
-                        <div class="services-section-index">03 <span>/ 04</span></div>
+                        <div class="services-section-index">02 <span>/ 04</span></div>
                         <p class="section-kicker" data-i18n="services_kicker">O que eu posso construir com você</p>
                         <h2 data-i18n="services_title">Da primeira decisão ao produto em operação.</h2>
                     </div>
@@ -175,27 +176,27 @@
                 <div class="services-divider" aria-hidden="true"><span></span><i class="fas fa-arrow-down"></i><span></span></div>
                 <div class="solution-grid">
                     <article class="solution-card solution-card--featured reveal">
-                        <div class="solution-card-top"><span class="solution-number">01 <em>/ 05</em></span><i class="fas fa-window-maximize" aria-hidden="true"></i></div>
+                        <div class="solution-card-media"><img class="solution-card-image" src="img/web-products-editorial.png" alt="Produto web SaaS exibido em um dashboard profissional" width="1672" height="941" loading="lazy" decoding="async"><div class="solution-card-top"><span class="solution-number">01 <em>/ 05</em></span><i class="fas fa-window-maximize" aria-hidden="true"></i></div></div>
                         <div class="solution-card-body"><span class="solution-card-kicker" data-i18n="service_web_kicker">Produto digital</span><h3 data-i18n="service_web_title">Produtos Web</h3><p data-i18n="service_web_desc">Sites, landing pages, portais, dashboards e SaaS desenhados para converter atenção em oportunidade e operação em escala.</p></div>
                         <div class="solution-card-bottom"><div class="solution-tags"><span>UX</span><span>SEO</span><span>SaaS</span><span>Performance</span></div><a class="solution-card-arrow" href="desenvolvimento-web.html" data-i18n-attr="aria-label" data-i18n="service_web_link" aria-label="Conhecer desenvolvimento web"><span class="sr-only" data-i18n="service_web_link">Conhecer desenvolvimento web</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
                     </article>
                     <article class="solution-card solution-card--accent reveal reveal-delay">
-                        <div class="solution-card-top"><span class="solution-number">02 <em>/ 05</em></span><i class="fas fa-mobile-screen-button" aria-hidden="true"></i></div>
+                        <div class="solution-card-media"><img class="solution-card-image" src="img/mobile-apps-editorial.png" alt="Dois smartphones exibindo o mesmo produto adaptado para Android e iOS" width="1672" height="941" loading="lazy" decoding="async"><div class="solution-card-top"><span class="solution-number">02 <em>/ 05</em></span><i class="fas fa-mobile-screen-button" aria-hidden="true"></i></div></div>
                         <div class="solution-card-body"><span class="solution-card-kicker" data-i18n="service_mobile_kicker">Experiência mobile</span><h3 data-i18n="service_mobile_title">Apps Android &amp; iOS</h3><p data-i18n="service_mobile_desc">Aplicativos multiplataforma com experiência nativa, integrações robustas e publicação até a loja.</p></div>
                         <div class="solution-card-bottom"><div class="solution-tags"><span>.NET MAUI</span><span>Offline</span><span>Real-time</span></div><a class="solution-card-arrow" href="desenvolvimento-mobile-desktop.html" data-i18n-attr="aria-label" data-i18n="service_mobile_link" aria-label="Conhecer desenvolvimento de aplicativos"><span class="sr-only" data-i18n="service_mobile_link">Conhecer desenvolvimento de aplicativos</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
                     </article>
                     <article class="solution-card solution-card--ai reveal">
-                        <div class="solution-card-top"><span class="solution-number">03 <em>/ 05</em></span><i class="fas fa-brain" aria-hidden="true"></i></div>
+                        <div class="solution-card-media"><img class="solution-card-image" src="img/ai-applied-editorial.png" alt="Pessoa utilizando uma ferramenta de inteligência artificial para organizar dados e gerar recomendações" width="1672" height="941" loading="lazy" decoding="async"><div class="solution-card-top"><span class="solution-number">03 <em>/ 05</em></span><i class="fas fa-brain" aria-hidden="true"></i></div></div>
                         <div class="solution-card-body"><span class="solution-card-kicker" data-i18n="service_ai_kicker">Inteligência aplicada</span><h3 data-i18n="service_ai_title">IA aplicada</h3><p data-i18n="service_ai_desc">Automação, assistentes, busca inteligente e decisões orientadas por dados — IA onde ela gera valor de verdade.</p></div>
                         <div class="solution-card-bottom"><div class="solution-tags"><span>LLM</span><span>Automação</span><span>Dados</span></div><a class="solution-card-arrow" href="#contato" data-i18n-attr="aria-label" data-i18n="service_ai_link" aria-label="Conversar sobre inteligência artificial aplicada"><span class="sr-only" data-i18n="service_ai_link">Conversar sobre inteligência artificial aplicada</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
                     </article>
                     <article class="solution-card solution-card--architecture reveal">
-                        <div class="solution-card-top"><span class="solution-number">04 <em>/ 05</em></span><i class="fas fa-server" aria-hidden="true"></i></div>
+                        <div class="solution-card-media"><img class="solution-card-image" src="img/architecture-apis-editorial.png" alt="Estação de trabalho com documentação de APIs, mapa de serviços e métricas de observabilidade" width="1774" height="887" loading="lazy" decoding="async"><div class="solution-card-top"><span class="solution-number">04 <em>/ 05</em></span><i class="fas fa-server" aria-hidden="true"></i></div></div>
                         <div class="solution-card-body"><span class="solution-card-kicker" data-i18n="service_arch_kicker">Base para crescer</span><h3 data-i18n="service_arch_title">Arquitetura &amp; APIs</h3><p data-i18n="service_arch_desc">Backend, integrações, observabilidade e performance para produtos que precisam ser confiáveis hoje e amanhã.</p></div>
                         <div class="solution-card-bottom"><div class="solution-tags"><span>APIs</span><span>Cloud</span><span>Observabilidade</span></div><a class="solution-card-arrow" href="dev-as-a-service.html" data-i18n-attr="aria-label" data-i18n="service_arch_link" aria-label="Conversar sobre arquitetura e APIs"><span class="sr-only" data-i18n="service_arch_link">Conversar sobre arquitetura e APIs</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
                     </article>
                     <article class="solution-card solution-card--advisory reveal reveal-delay">
-                        <div class="solution-card-top"><span class="solution-number">05 <em>/ 05</em></span><i class="fas fa-compass-drafting" aria-hidden="true"></i></div>
+                        <div class="solution-card-media"><img class="solution-card-image" src="img/glauber-terno-tech.png" alt="Retrato editorial de Glauber Barcelos" width="1254" height="1254" loading="lazy" decoding="async"><div class="solution-card-top"><span class="solution-number">05 <em>/ 05</em></span><i class="fas fa-compass-drafting" aria-hidden="true"></i></div></div>
                         <div class="solution-card-body"><span class="solution-card-kicker" data-i18n="service_advisory_kicker">Visão sênior</span><h3 data-i18n="service_advisory_title">Consultoria &amp; liderança técnica</h3><p data-i18n="service_advisory_desc">Uma visão sênior para tirar decisões do campo das opiniões: diagnóstico, roadmap, priorização, revisão de arquitetura e condução hands-on.</p></div>
                         <div class="solution-card-bottom"><div class="solution-tags"><span>Diagnóstico</span><span>Roadmap</span><span>Decisão</span></div><a class="solution-card-arrow" href="dev-as-a-service.html" data-i18n-attr="aria-label" data-i18n="service_advisory_link_page" aria-label="Conhecer consultoria e liderança técnica"><span class="sr-only" data-i18n="service_advisory_link_page">Conhecer consultoria e liderança técnica</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a></div>
                     </article>
@@ -207,7 +208,7 @@
         <section id="cases" class="section section--cases">
             <div class="shell">
                 <div class="cases-head reveal">
-                    <div class="cases-head-main"><div class="cases-section-index">04 <span>/ 04</span></div><p class="section-kicker" data-i18n="cases_kicker">Trabalho que fala por si</p><h2 data-i18n="cases_title">Projetos reais. Contextos diferentes. A mesma obsessão por entregar bem.</h2></div>
+                    <div class="cases-head-main"><div class="cases-section-index">03 <span>/ 04</span></div><p class="section-kicker" data-i18n="cases_kicker">Trabalho que fala por si</p><h2 data-i18n="cases_title">Projetos reais. Contextos diferentes. A mesma obsessão por entregar bem.</h2></div>
                     <div class="cases-head-side"><p data-i18n="cases_intro">Uma seleção de produtos e experiências em que tecnologia, operação e impacto precisaram andar juntos.</p><div class="cases-head-note"><span data-i18n="cases_note_label">SELEÇÃO CURADA</span><strong data-i18n="cases_note_text">Produto, operação e experiência na mesma entrega.</strong></div></div>
                 </div>
                 <div class="case-grid">
@@ -246,14 +247,14 @@
         <section id="contato" class="section section--contact">
             <div class="shell">
                 <div class="contact-lead reveal">
-                    <div class="contact-section-index">05 <span>/ 05</span></div>
+                    <div class="contact-section-index">04 <span>/ 04</span></div>
                     <div class="contact-lead-main"><p class="section-kicker" data-i18n="contact_kicker">Contato</p><h2 data-i18n="contact_title">O seu projeto começa com uma boa conversa.</h2><p data-i18n="contact_intro">Preencha o formulário com o contexto que você já tem. Não precisa chegar com tudo pronto.</p></div>
                     <div class="contact-lead-aside"><span data-i18n="contact_aside_label">PRÓXIMO PASSO</span><strong data-i18n="contact_aside_text">Uma conversa objetiva para entender o desafio e escolher o melhor caminho.</strong></div>
                 </div>
                 <div class="contact-layout">
                     <div class="contact-copy reveal">
                         <div class="contact-context"><span class="contact-micro" data-i18n="contact_context_label">O QUE VOCÊ PODE ENVIAR</span><div class="contact-context-list"><div><i class="fas fa-lightbulb" aria-hidden="true"></i><span data-i18n="contact_context_1">Uma ideia ainda em validação</span></div><div><i class="fas fa-arrow-trend-up" aria-hidden="true"></i><span data-i18n="contact_context_2">Um produto que precisa evoluir</span></div><div><i class="fas fa-diagram-project" aria-hidden="true"></i><span data-i18n="contact_context_3">Um desafio técnico ou de arquitetura</span></div></div></div>
-                        <p class="contact-availability" data-i18n="contact_availability">Atendo projetos ponta a ponta, do diagnóstico à operação.</p>
+                        <p class="contact-availability" data-i18n="contact_availability">Atuo de ponta a ponta — do diagnóstico à evolução do produto.</p>
                         <div class="contact-links"><a href="https://wa.me/5551980120387" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i><span data-i18n="contact_whatsapp">+55 (51) 98012-0387</span></a><a href="mailto:ggbarcelos@gmail.com"><i class="fas fa-envelope" aria-hidden="true"></i><span data-i18n="contact_email">ggbarcelos@gmail.com</span></a><a href="https://www.linkedin.com/in/glauber-gomes-barcelos/" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i><span data-i18n="contact_linkedin">LinkedIn / glauber-gomes-barcelos</span></a></div>
                     </div>
                     <form class="contact-form reveal reveal-delay" id="contactForm" novalidate>
@@ -277,7 +278,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>emailjs.init({ publicKey: 'xAtMa5JUwZUvcGnXw' });</script>
-    <script src="js/i18n.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/i18n.js?v=20260907"></script>
+    <script src="js/main.js?v=20260907"></script>
 </body>
 </html>

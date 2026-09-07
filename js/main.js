@@ -26,6 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navLinks.forEach(link => link.addEventListener('click', closeMenu));
 
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeMenu();
+    });
+
     const handleScroll = () => {
         nav?.classList.toggle('is-scrolled', window.scrollY > 25);
         let current = '';
@@ -42,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const target = document.querySelector(anchor.getAttribute('href'));
             if (!target) return;
             event.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         });
     });
 
@@ -72,9 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!errorEl && formField) {
             errorEl = document.createElement('div');
             errorEl.className = 'field-error';
+            errorEl.id = `${field.id}-error`;
+            errorEl.setAttribute('role', 'alert');
             formField.appendChild(errorEl);
         }
         field.classList.toggle('is-invalid', Boolean(message));
+        field.setAttribute('aria-invalid', String(Boolean(message)));
+        if (errorEl) field.setAttribute('aria-describedby', errorEl.id);
         if (errorEl) {
             errorEl.textContent = message || '';
             errorEl.style.display = message ? 'block' : 'none';
@@ -113,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setFieldState(messageField, errors.message);
         if (Object.values(errors).some(Boolean)) {
             showFormStatus(t.err_fields, 'error');
+            [nameField, contactField, messageField].find(field => field?.classList.contains('is-invalid'))?.focus();
             return;
         }
 
@@ -122,7 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.innerHTML = t.sending;
         }
         showFormStatus(t.sending, 'info');
-        emailjs.send('service_1u29mnn', 'template_776y0px', {
+        if (!window.emailjs) {
+            showFormStatus(t.send_error, 'error');
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = t.send_btn_original || submitButton.dataset.originalHtml;
+            }
+            return;
+        }
+        window.emailjs.send('service_1u29mnn', 'template_776y0px', {
             name: values.name,
             contact: values.contact,
             message: values.message,
@@ -135,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
         }).catch(error => {
             console.error('EmailJS error:', error?.status, error?.text);
-            showFormStatus('Não foi possível enviar agora. Tente pelo WhatsApp.', 'error');
+            showFormStatus(getTranslations().send_error, 'error');
         }).finally(() => {
             if (submitButton) {
                 submitButton.disabled = false;
