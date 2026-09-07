@@ -1,189 +1,146 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Apply language on load
-    if (window.__i18n) {
-        window.__i18n.applyLang(window.__i18n.detectLang());
-    }
+    if (window.__i18n) window.__i18n.applyLang(window.__i18n.detectLang());
 
-    const t = () => window.__i18n
-        ? window.__i18n.translations[localStorage.getItem('gb_lang') || window.__i18n.detectLang()]
-        : {};
-    const navbar = document.querySelector('.navbar-custom');
-    const contactForm = document.getElementById('contactForm');
-    const navLinks = document.querySelectorAll('.navbar-custom .nav-link');
-
-    const setFieldState = (field, message) => {
-        if (!field) return;
-        const formGroup = field.closest('.form-group');
-        let errorEl = formGroup ? formGroup.querySelector('.field-error') : null;
-
-        if (!errorEl && formGroup) {
-            errorEl = document.createElement('div');
-            errorEl.className = 'field-error';
-            formGroup.appendChild(errorEl);
-        }
-
-        if (message) {
-            field.classList.add('is-invalid');
-            if (errorEl) {
-                errorEl.textContent = message;
-                errorEl.style.display = 'block';
-            }
-            return;
-        }
-
-        field.classList.remove('is-invalid');
-        if (errorEl) {
-            errorEl.textContent = '';
-            errorEl.style.display = 'none';
-        }
+    const getTranslations = () => {
+        const lang = localStorage.getItem('gb_lang') || window.__i18n?.detectLang() || 'pt';
+        return window.__i18n?.translations?.[lang] || {};
     };
 
-    const showFormStatus = (message, type = 'info') => {
-        const formStatus = document.getElementById('formStatus');
-        if (!formStatus) return;
-        formStatus.textContent = message;
-        formStatus.className = `form-status ${type}`;
-        formStatus.style.display = 'block';
+    const nav = document.querySelector('.site-nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navMenu = document.querySelector('.nav-links');
+
+    const closeMenu = () => {
+        if (!navMenu || !navToggle) return;
+        navMenu.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('menu-open');
     };
 
-    if (navbar) {
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('navbar-scrolled', window.scrollY > 50);
+    navToggle?.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('is-open');
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.classList.toggle('menu-open', isOpen);
+    });
+
+    navLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    const handleScroll = () => {
+        nav?.classList.toggle('is-scrolled', window.scrollY > 25);
+        let current = '';
+        document.querySelectorAll('header[id], section[id]').forEach(section => {
+            if (window.scrollY >= section.offsetTop - 180) current = section.id;
         });
-    }
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (!href || href === '#') {
-                return;
-            }
-
-            const target = document.querySelector(href);
-            if (!target) {
-                return;
-            }
-
-            e.preventDefault();
+        anchor.addEventListener('click', event => {
+            const target = document.querySelector(anchor.getAttribute('href'));
+            if (!target) return;
+            event.preventDefault();
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
 
-    if (contactForm) {
-        const submitButton = contactForm.querySelector('button[type="submit"]');
-        const contactField = document.getElementById('contact');
-
-        // Phone mask: (XX) XXXXX-XXXX
-        if (contactField) {
-            contactField.addEventListener('input', () => {
-                let v = contactField.value.replace(/\D/g, '').slice(0, 11);
-                if (v.length <= 2)       contactField.value = v.length ? `(${v}` : '';
-                else if (v.length <= 7)  contactField.value = `(${v.slice(0,2)}) ${v.slice(2)}`;
-                else if (v.length <= 11) contactField.value = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
             });
-        }
-
-        contactForm.addEventListener('submit', e => {
-            e.preventDefault();
-
-            const nameField = document.getElementById('name');
-            const messageField = document.getElementById('message');
-
-            const rawPhone = (contactField?.value || '').replace(/\D/g, '');
-
-            const values = {
-                name: nameField?.value.trim() || '',
-                contact: contactField?.value.trim() || '',
-                message: messageField?.value.trim() || ''
-            };
-
-            const tr = t();
-            const errors = {
-                name:    values.name.length < 3 ? (tr.err_name || 'Informe seu nome completo.') : '',
-                contact: rawPhone.length < 10 || rawPhone.length > 11
-                            ? (tr.err_contact || 'Informe um número de WhatsApp válido, ex: (51) 98012-0387.') : '',
-                message: values.message.length < 10 ? (tr.err_message || 'Conte um pouco mais sobre a sua ideia.') : ''
-            };
-
-            setFieldState(nameField, errors.name);
-            setFieldState(contactField, errors.contact);
-            setFieldState(messageField, errors.message);
-
-            const hasErrors = Object.values(errors).some(Boolean);
-            if (hasErrors) {
-                showFormStatus(tr.err_fields || 'Revise os campos destacados e tente novamente.', 'error');
-                return;
-            }
-
-            if (submitButton) {
-                submitButton.disabled = true;
-                submitButton.dataset.originalText = submitButton.dataset.originalText || submitButton.textContent;
-                submitButton.textContent = 'Enviando...';
-            }
-
-            showFormStatus(tr.sending || 'Enviando mensagem...', 'info');
-
-            emailjs.send('service_1u29mnn', 'template_776y0px', {
-                name:    values.name,
-                contact: values.contact,
-                message: values.message,
-                // campos extras que o template pode esperar
-                email:       'formulario@portifolio.com',
-                from_name:   values.name,
-                reply_to:    'formulario@portifolio.com',
-                to_name:     'Glauber'
-            })
-                .then(() => {
-                    const tr2 = t();
-                    showFormStatus(tr2.sent_ok || 'Mensagem enviada! Vou te chamar no WhatsApp em breve. 🚀', 'success');
-                    contactForm.reset();
-                })
-                .catch((error) => {
-                    console.error('EmailJS error status:', error?.status);
-                    console.error('EmailJS error text:', error?.text);
-                    console.error('EmailJS error full:', JSON.stringify(error));
-                    showFormStatus(`Erro ao enviar (${error?.status}: ${error?.text}). Tente novamente.`, 'error');
-                })
-                .finally(() => {
-                    const tr3 = t();
-                    if (submitButton) {
-                        submitButton.disabled = false;
-                        submitButton.textContent = tr3.send_btn_original || submitButton.dataset.originalText || 'Enviar mensagem';
-                    }
-                });
-        });
+        }, { threshold: 0.12 });
+        revealItems.forEach(item => observer.observe(item));
+    } else {
+        revealItems.forEach(item => item.classList.add('is-visible'));
     }
 
-    window.addEventListener('scroll', () => {
-        let current = '';
-        document.querySelectorAll('section[id], header[id]').forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (window.scrollY >= sectionTop - 220) {
-                current = section.getAttribute('id');
-            }
-        });
+    const contactForm = document.getElementById('contactForm');
+    const contactField = document.getElementById('contact');
+    const submitButton = contactForm?.querySelector('button[type="submit"]');
 
-        navLinks.forEach(link => {
-            link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-        });
-    });
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            const navbarCollapse = document.querySelector('.navbar-collapse');
-            const toggler = document.querySelector('.navbar-toggler');
-            if (navbarCollapse && navbarCollapse.classList.contains('show') && toggler) {
-                toggler.click();
-            }
-        });
-    });
-
-    document.querySelectorAll('img').forEach(img => {
-        if (!img.closest('.hero-image')) {
-            img.loading = img.loading || 'lazy';
-            img.decoding = img.decoding || 'async';
+    const setFieldState = (field, message) => {
+        if (!field) return;
+        const formField = field.closest('.form-field');
+        let errorEl = formField?.querySelector('.field-error');
+        if (!errorEl && formField) {
+            errorEl = document.createElement('div');
+            errorEl.className = 'field-error';
+            formField.appendChild(errorEl);
         }
+        field.classList.toggle('is-invalid', Boolean(message));
+        if (errorEl) {
+            errorEl.textContent = message || '';
+            errorEl.style.display = message ? 'block' : 'none';
+        }
+    };
+
+    const showFormStatus = (message, type = 'info') => {
+        const status = document.getElementById('formStatus');
+        if (!status) return;
+        status.textContent = message;
+        status.className = `form-status ${type}`;
+        status.style.display = 'block';
+    };
+
+    contactField?.addEventListener('input', () => {
+        let value = contactField.value.replace(/\D/g, '').slice(0, 11);
+        if (value.length <= 2) contactField.value = value ? `(${value}` : '';
+        else if (value.length <= 7) contactField.value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+        else contactField.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+    });
+
+    contactForm?.addEventListener('submit', event => {
+        event.preventDefault();
+        const nameField = document.getElementById('name');
+        const messageField = document.getElementById('message');
+        const values = { name: nameField?.value.trim() || '', contact: contactField?.value.trim() || '', message: messageField?.value.trim() || '' };
+        const phoneDigits = values.contact.replace(/\D/g, '');
+        const t = getTranslations();
+        const errors = {
+            name: values.name.length < 3 ? t.err_name : '',
+            contact: phoneDigits.length < 10 || phoneDigits.length > 11 ? t.err_contact : '',
+            message: values.message.length < 10 ? t.err_message : ''
+        };
+        setFieldState(nameField, errors.name);
+        setFieldState(contactField, errors.contact);
+        setFieldState(messageField, errors.message);
+        if (Object.values(errors).some(Boolean)) {
+            showFormStatus(t.err_fields, 'error');
+            return;
+        }
+
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.dataset.originalHtml = submitButton.dataset.originalHtml || submitButton.innerHTML;
+            submitButton.innerHTML = t.sending;
+        }
+        showFormStatus(t.sending, 'info');
+        emailjs.send('service_1u29mnn', 'template_776y0px', {
+            name: values.name,
+            contact: values.contact,
+            message: values.message,
+            email: 'formulario@portifolio.com',
+            from_name: values.name,
+            reply_to: 'formulario@portifolio.com',
+            to_name: 'Glauber'
+        }).then(() => {
+            showFormStatus(getTranslations().sent_ok, 'success');
+            contactForm.reset();
+        }).catch(error => {
+            console.error('EmailJS error:', error?.status, error?.text);
+            showFormStatus('Não foi possível enviar agora. Tente pelo WhatsApp.', 'error');
+        }).finally(() => {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = getTranslations().send_btn_original || submitButton.dataset.originalHtml;
+            }
+        });
     });
 });
-
-console.log('✨ Portfólio de Glauber carregado com foco em conversão.');

@@ -1,163 +1,127 @@
-(function() {
+(function () {
+  'use strict';
+
+  var baseUrl = 'https://glauberbarcelos.com.br/';
+  var personId = baseUrl + '#glauber-barcelos';
+
   var schema = {
-    "@context": "https://schema.org",
-    "@graph": [
+    '@context': 'https://schema.org',
+    '@graph': [
       {
-        "@type": "WebSite",
-        "@id": "https://glauberbarcelos.com.br/#website",
-        "url": "https://glauberbarcelos.com.br/",
-        "name": "Glauber Barcelos",
-        "description": "Desenvolvimento Web, Mobile e Backend completo do início ao fim.",
-        "inLanguage": ["pt-BR", "en"],
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://glauberbarcelos.com.br/?s={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+        '@type': 'WebSite',
+        '@id': baseUrl + '#website',
+        'url': baseUrl,
+        'name': 'Glauber Barcelos',
+        'description': 'Engenharia de software para sites, sistemas web, aplicativos, inteligência artificial e produtos digitais.',
+        'inLanguage': 'pt-BR',
+        'publisher': { '@id': personId }
       },
       {
-        "@type": "Person",
-        "@id": "https://glauberbarcelos.com.br/#pessoa",
-        "name": "Glauber Barcelos",
-        "givenName": "Glauber",
-        "familyName": "Barcelos",
-        "jobTitle": "Engenheiro de Software Sênior",
-        "description": "Engenheiro de software sênior com mais de 20 anos de experiência em desenvolvimento web, mobile e backend. Atende clientes em todo o Brasil.",
-        "url": "https://glauberbarcelos.com.br/",
-        "image": {
-          "@type": "ImageObject",
-          "url": "https://glauberbarcelos.com.br/img/glauber3.png",
-          "width": 1536,
-          "height": 1024
+        '@type': 'WebPage',
+        '@id': baseUrl + '#webpage',
+        'url': baseUrl,
+        'name': 'Glauber Barcelos | Software, apps e IA para negócios',
+        'description': 'Engenheiro de software sênior para criar sites, sistemas web, apps Android e iOS, soluções com IA e APIs — do diagnóstico à entrega.',
+        'isPartOf': { '@id': baseUrl + '#website' },
+        'about': { '@id': personId },
+        'mainEntity': { '@id': baseUrl + '#software-service' },
+        'dateModified': '2026-09-07',
+        'primaryImageOfPage': {
+          '@type': 'ImageObject',
+          'url': baseUrl + 'img/social/glauber-social-1200x630.png',
+          'width': 1200,
+          'height': 630
         },
-        "telephone": "+5551980120387",
-        "email": "ggbarcelos@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Porto Alegre",
-          "addressRegion": "RS",
-          "addressCountry": "BR"
+        'inLanguage': 'pt-BR'
+      },
+      {
+        '@type': 'Person',
+        '@id': personId,
+        'name': 'Glauber Barcelos',
+        'givenName': 'Glauber',
+        'familyName': 'Barcelos',
+        'jobTitle': 'Engenheiro de Software Sênior',
+        'description': 'Engenheiro de software sênior com mais de 20 anos de experiência em produtos web, aplicativos mobile, arquitetura, APIs e inteligência artificial aplicada.',
+        'url': baseUrl,
+        'image': {
+          '@type': 'ImageObject',
+          'url': baseUrl + 'img/glauber-terno-tech.png',
+          'width': 1254,
+          'height': 1254
         },
-        "sameAs": [
-          "https://www.linkedin.com/in/glauber-gomes-barcelos-5b517a381/",
-          "https://github.com/ggbarcelos",
-          "https://www.instagram.com/glauberbarcelos.dev/"
+        'telephone': '+5551980120387',
+        'email': 'ggbarcelos@gmail.com',
+        'address': {
+          '@type': 'PostalAddress',
+          'addressLocality': 'Porto Alegre',
+          'addressRegion': 'RS',
+          'addressCountry': 'BR'
+        },
+        'sameAs': [
+          'https://www.linkedin.com/in/glauber-gomes-barcelos/',
+          'https://github.com/ggbarcelos',
+          'https://www.instagram.com/glauberbarcelos.dev/'
         ],
-        "knowsAbout": [
-          "Desenvolvimento Web",
-          "Desenvolvimento Mobile",
-          "Backend e APIs REST",
-          "Android e iOS",
-          "SaaS",
-          "MVP",
-          ".NET MAUI",
-          "Inteligência Artificial"
+        'knowsLanguage': ['pt-BR', 'en'],
+        'knowsAbout': [
+          'Desenvolvimento Web',
+          'Sistemas Web e SaaS',
+          'Desenvolvimento Mobile',
+          'Aplicativos Android e iOS',
+          'Backend e APIs REST',
+          'Arquitetura de Software',
+          '.NET e .NET MAUI',
+          'Inteligência Artificial Aplicada',
+          'Consultoria e Liderança Técnica'
         ]
       },
       {
-        "@type": "ProfessionalService",
-        "@id": "https://glauberbarcelos.com.br/#servico",
-        "name": "Glauber Barcelos — Desenvolvimento de Software",
-        "description": "Desenvolvimento de projetos completos de software: sites, sistemas web, APIs, apps Android e iOS. Atendimento em todo o Brasil.",
-        "url": "https://glauberbarcelos.com.br/",
-        "telephone": "+5551980120387",
-        "email": "ggbarcelos@gmail.com",
-        "image": "https://glauberbarcelos.com.br/img/glauber3.png",
-        "priceRange": "$$",
-        "currenciesAccepted": "BRL",
-        "paymentAccepted": "PIX, Transferência bancária",
-        "provider": { "@id": "https://glauberbarcelos.com.br/#pessoa" },
-        "areaServed": [
-          { "@type": "Country", "name": "Brasil" },
-          { "@type": "Country", "name": "US" },
-          { "@type": "Country", "name": "Worldwide" }
-        ],
-        "serviceType": [
-          "Desenvolvimento Web",
-          "Criação de Sites",
-          "Sistemas Web",
-          "Backend e APIs",
-          "Desenvolvimento Mobile",
-          "Aplicativos Android",
-          "Aplicativos iOS",
-          "MVP",
-          "SaaS"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Serviços de Desenvolvimento de Software",
-          "itemListElement": [
+        '@type': 'Service',
+        '@id': baseUrl + '#software-service',
+        'name': 'Desenvolvimento de software sob medida',
+        'description': 'Projetos ponta a ponta de sites, sistemas web, aplicativos Android e iOS, APIs, IA aplicada e consultoria técnica.',
+        'provider': { '@id': personId },
+        'areaServed': { '@type': 'Country', 'name': 'Brasil' },
+        'serviceType': 'Engenharia de software e desenvolvimento de produtos digitais',
+        'url': baseUrl,
+        'hasOfferCatalog': {
+          '@type': 'OfferCatalog',
+          'name': 'Soluções de software',
+          'itemListElement': [
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Desenvolvimento Web",
-                "description": "Sites, landing pages, sistemas web e plataformas SaaS com foco em performance e conversão."
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Desenvolvimento Web',
+                'description': 'Sites, landing pages, sistemas web, portais, dashboards e plataformas SaaS.'
               }
             },
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Backend e APIs",
-                "description": "APIs REST, banco de dados, arquitetura escalável e integrações com serviços de terceiros."
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Aplicativos Android e iOS',
+                'description': 'Aplicativos mobile multiplataforma com integrações e publicação nas lojas.'
               }
             },
             {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Aplicativos Mobile",
-                "description": "Aplicativos Android e iOS multiplataforma com publicação nas lojas App Store e Google Play."
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Inteligência Artificial Aplicada',
+                'description': 'Automação, assistentes, busca inteligente e integração de IA ao produto.'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Arquitetura, APIs e Consultoria Técnica',
+                'description': 'Diagnóstico, roadmap, revisão de arquitetura, APIs e liderança técnica sob demanda.'
               }
             }
           ]
         }
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Quanto tempo leva para desenvolver um MVP?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Em geral entre 4 e 8 semanas, dependendo do escopo e das integrações necessárias. O processo começa com um diagnóstico para definir o que entra no MVP e o que pode ficar para versões futuras."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Você desenvolve aplicativos para Android e iOS?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sim. Trabalho com desenvolvimento multiplataforma, entregando apps para Android e iOS a partir de uma única base de código, reduzindo custo e prazo de entrega."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Você cuida de todo o projeto ou só do código?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Cuido de todas as etapas: diagnóstico, planejamento, desenvolvimento (front-end, back-end e mobile) e entrega final. Você não precisa contratar múltiplos fornecedores."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Atende clientes fora de Porto Alegre?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Sim, atendo clientes remotamente no Brasil e no exterior. Todo o processo de alinhamento, acompanhamento e entrega é feito de forma online."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Como posso solicitar um orçamento?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Você pode entrar em contato pelo WhatsApp (51) 98012-0387 ou pelo formulário do site. Em menos de 24h retorno com os próximos passos."
-            }
-          }
-        ]
       }
     ]
   };

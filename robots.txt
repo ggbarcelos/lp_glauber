@@ -1,0 +1,27 @@
+# Busca generativa: conteúdo público pode ser rastreado e citado.
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /graphify-out/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /graphify-out/
+
+User-agent: bingbot
+Allow: /
+Disallow: /graphify-out/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /graphify-out/
+
+# GPTBot é usado para treinamento, não é necessário para a busca do ChatGPT.
+# Remova este bloco somente se você quiser autorizar esse uso também.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: *
+Allow: /
+Disallow: /graphify-out/
+
+Sitemap: https://glauberbarcelos.com.br/sitemap.xml
