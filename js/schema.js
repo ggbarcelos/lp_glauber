@@ -20,12 +20,12 @@
         '@type': 'WebPage',
         '@id': baseUrl + '#webpage',
         'url': baseUrl,
-        'name': 'Glauber Barcelos | Software, apps e IA para negócios',
-        'description': 'Engenheiro de software sênior para criar sites, sistemas web, apps Android e iOS, soluções com IA e APIs — do diagnóstico à entrega.',
+        'name': 'Desenvolvimento de SaaS e aplicativos para empresas | Glauber Barcelos',
+        'description': 'Desenvolvimento de SaaS, aplicativos Android e iOS e consultoria técnica para empresas. Defina seu MVP, integrações e próximos passos com Glauber Barcelos.',
         'isPartOf': { '@id': baseUrl + '#website' },
         'about': { '@id': personId },
         'mainEntity': { '@id': baseUrl + '#software-service' },
-        'dateModified': '2026-09-07',
+        'dateModified': '2026-09-26',
         'primaryImageOfPage': {
           '@type': 'ImageObject',
           'url': baseUrl + 'img/social/glauber-social-1200x630.png',
@@ -92,8 +92,18 @@
               '@type': 'Offer',
               'itemOffered': {
                 '@type': 'Service',
+                'name': 'Desenvolvimento de SaaS e MVP B2B',
+                'description': 'MVP, arquitetura e integrações com escopo definido.',
+                'url': baseUrl + 'desenvolvimento-saas.html'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
                 'name': 'Desenvolvimento Web',
-                'description': 'Sites, landing pages, sistemas web, portais, dashboards e plataformas SaaS.'
+                'description': 'Sites, landing pages, sistemas web, portais e dashboards.',
+                'url': baseUrl + 'desenvolvimento-web.html'
               }
             },
             {

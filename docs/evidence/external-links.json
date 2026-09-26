@@ -1,0 +1,44 @@
+[
+  {
+    "url": "https://empreender40mais.com/",
+    "status": 200,
+    "final": "https://empreender40mais.com/"
+  },
+  {
+    "url": "https://fonts.gstatic.com",
+    "error": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://github.com/ggbarcelos",
+    "status": 200,
+    "final": "https://github.com/ggbarcelos"
+  },
+  {
+    "url": "https://nativeip.com.br/lp/provedor-internet/",
+    "status": 200,
+    "final": "https://nativeip.com.br/lp/provedor-internet/"
+  },
+  {
+    "url": "https://streetme.com.br/seja-um-franqueado-streetme-v1/",
+    "status": 200,
+    "final": "https://streetme.com.br/seja-um-franqueado-streetme-v1/"
+  },
+  {
+    "url": "https://true.com.br/",
+    "status": 200,
+    "final": "https://true.com.br/"
+  },
+  {
+    "url": "https://vendas.turquesabemestar.com.br/",
+    "error": "HTTP Error 406: Not Acceptable"
+  },
+  {
+    "url": "https://www.instagram.com/glauberbarcelos.dev/",
+    "status": 200,
+    "final": "https://www.instagram.com/glauberbarcelos.dev/"
+  },
+  {
+    "url": "https://www.linkedin.com/in/glauber-gomes-barcelos/",
+    "error": "HTTP Error 405: Method Not Allowed"
+  }
+]

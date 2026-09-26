@@ -1,0 +1,37 @@
+[
+  {
+    "input": "img/logo_glauber.png",
+    "before": 143801,
+    "after": 19928
+  },
+  {
+    "input": "img/glauber-terno-tech.png",
+    "before": 2124190,
+    "after": 65494
+  },
+  {
+    "input": "img/web-products-editorial.png",
+    "before": 1579199,
+    "after": 38156
+  },
+  {
+    "input": "img/mobile-apps-editorial.png",
+    "before": 1842530,
+    "after": 36128
+  },
+  {
+    "input": "img/ai-applied-editorial.png",
+    "before": 1877028,
+    "after": 47516
+  },
+  {
+    "input": "img/architecture-apis-editorial.png",
+    "before": 1859733,
+    "after": 41572
+  },
+  {
+    "input": "img/process-blueprint.png",
+    "before": 1436631,
+    "after": 21932
+  }
+]

@@ -1,70 +1,19 @@
-# Configuração do EmailJS para Envio Direto de Emails
+# Formulário EmailJS existente
 
-## Passos para Configurar
+O site usa o SDK browser v4 e `emailjs.send()` em `js/main.js`. A chave pública continua no `index.html`; IDs do serviço/template continuam no JavaScript. Nenhum deles foi alterado nesta tarefa.
 
-### 1. Criar Conta no EmailJS
-- Acesse: https://www.emailjs.com/
-- Clique em "Sign Up" e crie uma conta gratuita
-- A conta gratuita permite até 200 emails/mês
+## Fluxo atual
 
-### 2. Adicionar Serviço de Email
-- No dashboard, vá em "Email Services"
-- Clique em "Add New Service"
-- Escolha o provedor (recomendado: **Gmail** ou **Outlook/Office365**)
-- Conecte sua conta ggbarcelos@gmail.com
-- Anote o **Service ID** gerado
+- Nome, WhatsApp e contexto obrigatórios, com erros associados aos campos e foco no primeiro erro.
+- Tipo de projeto opcional: enviado no início de `message`, para manter compatibilidade com o template existente.
+- Confirmação acessível após sucesso; reset do formulário somente nesse caso.
+- Rejeição, SDK ausente, erro síncrono ou ausência de resposta em 20 segundos: contexto preservado e links de WhatsApp/e-mail oferecidos. Nenhuma janela ou mensagem é aberta/enviada automaticamente.
+- Um timeout significa que o envio não foi confirmado; o provedor ainda pode concluir a operação. O texto não afirma cancelamento.
+- Sem JavaScript, o formulário permanece desabilitado para não transmitir campos pela URL. Os links de contato continuam disponíveis.
+- Dados do formulário seguem somente para o EmailJS no envio solicitado pelo visitante; não entram em analytics, armazenamento local nem mensagens de erro de console.
 
-### 3. Criar Template de Email
-- Vá em "Email Templates"
-- Clique em "Create New Template"
-- Use este template:
+## Verificação segura
 
-```
-Assunto: {{subject}} - Novo contato do portfólio
+Use `tests/b2b.cjs`, conforme `docs/B2B-VALIDACAO.md`. A suíte substitui o SDK por mocks e bloqueia requisições reais ao endpoint EmailJS. Não é necessário alterar credenciais ou o template para testar localmente.
 
-De: {{from_name}} ({{from_email}})
-
-Mensagem:
-{{message}}
-
----
-Este email foi enviado através do formulário de contato do seu portfólio.
-```
-
-- Salve e anote o **Template ID**
-
-### 4. Obter Public Key
-- Vá em "Account" > "General"
-- Copie o **Public Key** (também chamado de User ID)
-
-### 5. Configurar no Código
-Abra o arquivo `js/main.js` e substitua as credenciais:
-
-```javascript
-const EMAILJS_CONFIG = {
-    publicKey: 'SUA_PUBLIC_KEY_AQUI',     // Cole aqui o Public Key
-    serviceId: 'SEU_SERVICE_ID_AQUI',      // Cole aqui o Service ID
-    templateId: 'SEU_TEMPLATE_ID_AQUI'     // Cole aqui o Template ID
-};
-```
-
-### 6. Testar
-1. Salve todas as alterações
-2. Abra o portfólio no navegador
-3. Preencha o formulário de contato
-4. Clique em "Enviar Mensagem"
-5. Verifique se recebeu o email em ggbarcelos@gmail.com
-
-## Observações Importantes
-
-- ✅ **Gratuito**: Até 200 emails/mês
-- ✅ **Seguro**: Suas credenciais ficam no EmailJS, não expostas no código
-- ✅ **Confiável**: Serviço usado por milhares de sites
-- ✅ **Fácil**: Configuração em menos de 10 minutos
-
-## Fallback
-Se o EmailJS não estiver configurado, o formulário automaticamente abre o cliente de email do usuário como fallback.
-
-## Suporte
-- Documentação: https://www.emailjs.com/docs/
-- Tutoriais: https://www.emailjs.com/docs/examples/
+Um envio real de homologação depende de autorização explícita do proprietário e destinatário combinado. Não foi realizado nesta tarefa.

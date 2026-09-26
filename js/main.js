@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.__i18n) window.__i18n.applyLang(window.__i18n.detectLang());
 
     const getTranslations = () => {
-        const lang = localStorage.getItem('gb_lang') || window.__i18n?.detectLang() || 'pt';
+        const lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
         return window.__i18n?.translations?.[lang] || {};
     };
 
@@ -27,7 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => link.addEventListener('click', closeMenu));
 
     document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') closeMenu();
+        if (event.key === 'Escape' && navToggle?.getAttribute('aria-expanded') === 'true') {
+            closeMenu();
+            navToggle.focus();
+        }
     });
 
     const handleScroll = () => {
@@ -38,16 +41,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current}`));
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    let scrollPending = false;
+    window.addEventListener('scroll', () => {
+        if (scrollPending) return;
+        scrollPending = true;
+        requestAnimationFrame(() => { handleScroll(); scrollPending = false; });
+    }, { passive: true });
     handleScroll();
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', event => {
-            const target = document.querySelector(anchor.getAttribute('href'));
+            const target = document.getElementById(anchor.hash.slice(1));
             if (!target) return;
             event.preventDefault();
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            if (!target.hasAttribute('tabindex')) target.tabIndex = -1;
+            target.focus({ preventScroll: true });
         });
     });
 
@@ -67,8 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const contactForm = document.getElementById('contactForm');
+    const contactFields = document.getElementById('contactFields');
     const contactField = document.getElementById('contact');
     const submitButton = contactForm?.querySelector('button[type="submit"]');
+    const fallback = document.getElementById('formFallback');
+    let submitting = false;
+    // Progressive enhancement: no-JS users have direct contact links, no accidental GET with PII.
+    if (contactFields) contactFields.disabled = false;
+    const showFallback = () => { if (fallback) fallback.hidden = false; };
 
     const setFieldState = (field, message) => {
         if (!field) return;
@@ -105,8 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else contactField.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
     });
 
-    contactForm?.addEventListener('submit', event => {
+    contactForm?.addEventListener('submit', async event => {
         event.preventDefault();
+        if (submitting) return;
         const nameField = document.getElementById('name');
         const messageField = document.getElementById('message');
         const values = { name: nameField?.value.trim() || '', contact: contactField?.value.trim() || '', message: messageField?.value.trim() || '' };
@@ -131,34 +148,42 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.dataset.originalHtml = submitButton.dataset.originalHtml || submitButton.innerHTML;
             submitButton.innerHTML = t.sending;
         }
+        submitting = true;
+        contactForm.setAttribute('aria-busy', 'true');
+        if (fallback) fallback.hidden = true;
         showFormStatus(t.sending, 'info');
-        if (!window.emailjs) {
-            showFormStatus(t.send_error, 'error');
-            if (submitButton) {
-                submitButton.disabled = false;
-                submitButton.innerHTML = t.send_btn_original || submitButton.dataset.originalHtml;
-            }
-            return;
-        }
-        window.emailjs.send('service_1u29mnn', 'template_776y0px', {
+        const allowedTypes = ['saas', 'app', 'architecture', 'ai', 'web', 'consulting'];
+        const selectedType = document.getElementById('projectType')?.value;
+        const projectType = allowedTypes.includes(selectedType) ? selectedType : 'unspecified';
+        const projectLabel = t['project_' + projectType];
+        // Keep the existing template compatible by including optional type in message.
+        const message = projectLabel ? `${projectLabel}\n\n${values.message}` : values.message;
+        let timeout;
+        try {
+            if (!window.emailjs) throw new Error('Email service unavailable');
+            await Promise.race([window.emailjs.send('service_1u29mnn', 'template_776y0px', {
             name: values.name,
             contact: values.contact,
-            message: values.message,
+            message,
             email: 'formulario@portifolio.com',
             from_name: values.name,
             reply_to: 'formulario@portifolio.com',
             to_name: 'Glauber'
-        }).then(() => {
+            }), new Promise((_, reject) => { timeout = setTimeout(() => reject(new Error('timeout')), 20000); })]);
             showFormStatus(getTranslations().sent_ok, 'success');
+            window.GBAnalytics?.track('form_submit_success', 'contact', projectType);
             contactForm.reset();
-        }).catch(error => {
-            console.error('EmailJS error:', error?.status, error?.text);
+        } catch {
             showFormStatus(getTranslations().send_error, 'error');
-        }).finally(() => {
+            showFallback();
+        } finally {
+            clearTimeout(timeout);
+            submitting = false;
+            contactForm.setAttribute('aria-busy', 'false');
             if (submitButton) {
                 submitButton.disabled = false;
                 submitButton.innerHTML = getTranslations().send_btn_original || submitButton.dataset.originalHtml;
             }
-        });
+        }
     });
 });
