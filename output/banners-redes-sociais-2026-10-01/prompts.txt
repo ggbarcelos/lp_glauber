@@ -1,0 +1,44 @@
+Método: ferramenta integrada image_gen. Exportação final em JPEG com sips para dimensões exatas.
+
+HORIZONTAL
+Use case: ads-marketing / identity-preserve.
+Create a finished professional social sharing banner for Glauber Barcelos, a senior software engineer serving businesses. Image 1 is the facial identity reference: preserve precisely his recognizable face, age, hair, eyes, nose, mouth and natural slim narrow build. Image 2 is his official logo; include it faithfully, intact and proportionate, with its original white/cyan lettering and symbol.
+Art direction: premium restrained editorial design, dark navy #091019 and #0E1722, off-white #EFF8F8, mint #88F3C8 main accent, very small lavender accents. Generous negative space, precise grid, understated architectural fine lines and two quiet rounded surfaces, contemporary Manrope Bold style typography and tiny DM Mono style labels. Make a polished photographic portrait derived from the same man, natural skin texture, elegant contemporary clothing, welcoming expression, appropriate slim body. No random code, no robot, no brains, no holograms, no neon, no invented credentials, no statistics. Face unobstructed and head fully inside frame. Text must be spelled perfectly in Brazilian Portuguese. Website is plain text, no QR code.
+Exact visible text only:
+Logo: official logo supplied.
+Headline: "Tecnologia que move o seu negócio."
+Services: "SaaS • Aplicativos • IA aplicada"
+Supporting line: "Da ideia ao produto em operação."
+Footer: "glauberbarcelos.com.br"
+No extra slogan or text. Each output is ONE standalone banner, never a collage.
+Canvas: exact 1200 × 628 pixels, horizontal ratio ~1.91:1. Photo on right 38%, content left 55%, logo at upper left modest size. Headline in three strong lines; "seu negócio." in mint. Services and supporting line beneath. Website at lower left. Portrait wearing dark blazer over an ivory crew neck, torso turned slightly left, relaxed small smile looking at viewer. Keep all essential elements at least 56 px from edges, no overlap with face. Flat full bleed artwork; no mockup.
+
+QUADRADO
+Use case: ads-marketing / identity-preserve.
+Create a finished professional social sharing banner for Glauber Barcelos, a senior software engineer serving businesses. Image 1 is the facial identity reference: preserve precisely his recognizable face, age, hair, eyes, nose, mouth and natural slim narrow build. Image 2 is his official logo; include it faithfully, intact and proportionate, with its original white/cyan lettering and symbol.
+Art direction: premium restrained editorial design, dark navy #091019 and #0E1722, off-white #EFF8F8, mint #88F3C8 main accent, very small lavender accents. Generous negative space, precise grid, understated architectural fine lines and two quiet rounded surfaces, contemporary Manrope Bold style typography and tiny DM Mono style labels. Make a polished photographic portrait derived from the same man, natural skin texture, elegant contemporary clothing, welcoming expression, appropriate slim body. No random code, no robot, no brains, no holograms, no neon, no invented credentials, no statistics. Face unobstructed and head fully inside frame. Text must be spelled perfectly in Brazilian Portuguese. Website is plain text, no QR code.
+Exact visible text only:
+Logo: official logo supplied.
+Headline: "Tecnologia que move o seu negócio."
+Services: "SaaS • Aplicativos • IA aplicada"
+Supporting line: "Da ideia ao produto em operação."
+Footer: "glauberbarcelos.com.br"
+No extra slogan or text. Each output is ONE standalone banner, never a collage.
+Canvas: exact 1200 × 1200 pixels, square 1:1. Recompose for a smartphone feed. Logo upper left, headline large on upper left/middle occupying about 55% width, natural photographic portrait occupies lower right half. Services lower left, supporting line and website in a clear footer. Portrait wearing a charcoal premium shirt without tie, welcoming smile, shoulders naturally narrow. Entire head around center-right, no text across head or face. All text and logo at least 90 px inside edges. Headline at least 70 px equivalent, readable on phone. Flat full bleed artwork.
+
+STATUS
+Use case: ads-marketing / identity-preserve.
+Create a finished professional social sharing banner for Glauber Barcelos, a senior software engineer serving businesses. Image 1 is the facial identity reference: preserve precisely his recognizable face, age, hair, eyes, nose, mouth and natural slim narrow build. Image 2 is his official logo; include it faithfully, intact and proportionate, with its original white/cyan lettering and symbol.
+Art direction: premium restrained editorial design, dark navy #091019 and #0E1722, off-white #EFF8F8, mint #88F3C8 main accent, very small lavender accents. Generous negative space, precise grid, understated architectural fine lines and two quiet rounded surfaces, contemporary Manrope Bold style typography and tiny DM Mono style labels. Make a polished photographic portrait derived from the same man, natural skin texture, elegant contemporary clothing, welcoming expression, appropriate slim body. No random code, no robot, no brains, no holograms, no neon, no invented credentials, no statistics. Face unobstructed and head fully inside frame. Text must be spelled perfectly in Brazilian Portuguese. Website is plain text, no QR code.
+Exact visible text only:
+Logo: official logo supplied.
+Headline: "Tecnologia que move o seu negócio."
+Services: "SaaS • Aplicativos • IA aplicada"
+Supporting line: "Da ideia ao produto em operação."
+Footer: "glauberbarcelos.com.br"
+No extra slogan or text. Each output is ONE standalone banner, never a collage.
+Canvas: exact 1080 × 1920 pixels, vertical 9:16 for WhatsApp Status and Stories. Reserve top 240 px and bottom 280 px for interface overlays: no essential text there. Logo upper part at y~270. Headline in 3 strong lines in upper-middle. Services underneath headline. Portrait in central-lower region, waist-up with head fully visible and separate from text, wearing a midnight blue modern polo, open welcoming posture, small smile; narrow slim torso, no muscles. Supporting line and website in an intentional clear footer around y1550-1640. Essential text x90-990, y260-1640. Airy premium design, huge legible headline, sparse content. Flat full bleed artwork.
+
+AJUSTE FINAL DO STATUS
+Use case: identity-preserve / ads-marketing. Edit this single WhatsApp Status banner to correct its safe-area layout. Preserve exact recognizable facial identity, age, natural slim body, all Portuguese wording, logo geometry and color, dark navy and mint campaign art direction. Output ONE 1080 × 1920 px vertical 9:16 full bleed image.
+CRITICAL CHANGE: keep ALL logo, text and face inside the central safe region y=260 through y=1640 (13.5%-85% of height), with at least 90 px horizontal margin. TOP 250px and BOTTOM 280px must contain ONLY dark background / decorative shapes, no logo, no text. Move the logo down into y270-410 and make it slightly smaller. Headline y470-740, services y800. Portrait head below y850 and above y1250, torso continues downward, reduce portrait scale to fit rather than widening shoulders. Move supporting line up into y1470 and website y1560. Website "glauberbarcelos.com.br" must have at least 300px clear background BELOW it. No text or logo overlaps the face. No crop on hair. Preserve entire text: "Tecnologia que move o seu negócio." / "SaaS • Aplicativos • IA aplicada" / "Da ideia ao produto em operação." / "glauberbarcelos.com.br". Retain generous negative space; fit content by moderately reducing its scale if necessary. No guide marks or safe-area rectangles drawn. Same elegant design, just correct placement.
