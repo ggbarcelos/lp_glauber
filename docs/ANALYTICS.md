@@ -1,36 +1,36 @@
-# Eventos B2B e privacidade
+# Microsoft Clarity, eventos B2B e privacidade
 
-Nenhuma ferramenta de analytics estava instalada no código inspecionado. A integração está **desativada** em `js/analytics-config.js`; não carrega SDK, cookie, pixel ou endpoint de analytics.
+O site integra o Microsoft Clarity pelas APIs `identify`, `set`, `event` e `consentv2`. A configuração fica em `js/analytics-config.js`. Enquanto `clarityProjectId` estiver vazio, nenhum SDK de analytics é carregado e a interface de consentimento não aparece.
 
-## Dados necessários para ativar
+## Ativação
 
-1. Provedor, identificador da propriedade/site e forma de receber eventos.
-2. Política e interface de consentimento aprovada, inclusive retirada do consentimento.
-3. Códigos públicos e não pessoais permitidos para `utm_source`, `utm_medium` e `utm_campaign`.
-4. Responsável por retenção, acesso aos relatórios e política de privacidade do provedor.
+1. Copie o ID em Clarity → Settings → Setup → Installation para `clarityProjectId`. Mantenha `enabled: true`.
+2. No projeto Clarity, habilite Consent Mode (desative cookies por padrão em Settings → Setup). A interface do site solicita consentimento para analytics; armazenamento para publicidade permanece `denied`.
+3. Configure o mascaramento do projeto como **Strict**. O formulário de contato e toda a seção de diagnóstico também usam `data-clarity-mask="true"`.
+4. Preencha as listas de campanhas somente com códigos públicos aprovados. Listas vazias continuam válidas e não enviam UTMs nos eventos personalizados.
 
-Configure `enabled`, `send(payload)` e as listas de campanhas. O provedor deve ser carregado **somente após consentimento**, sem coleta automática de páginas, URLs, referrer, formulários, IP persistente ou identificadores. Revise também a configuração do provedor: o filtro do site não controla dados que um SDK colete por conta própria.
+A integração é compartilhada pelas seis páginas e só solicita `https://www.clarity.ms/tag/ID` depois de uma escolha afirmativa do visitante. Recusa, Do Not Track e Global Privacy Control impedem o carregamento. A escolha fica em `gb_analytics_consent` no localStorage, e pode ser alterada pelo botão “Preferências de privacidade” no rodapé. Retirada de consentimento limpa os IDs próprios, envia `consentv2` com ambos os tipos de armazenamento negados e recarrega a página sem o SDK. Isso também interrompe a gravação sem cookies que o ConsentV2 isolado permitiria. Não há fila de interações anteriores ao consentimento. Outras abas abertas recebem a retirada pelo evento `storage`.
+
+Sem acesso ao storage, a escolha e os IDs valem apenas para a página atual; o restante do site continua funcionando. Sem JavaScript, o Clarity não é carregado.
+
+## Identificadores personalizados
+
+A cada página consentida, a integração chama:
 
 ```js
-// Exemplo de contrato; não há endpoint configurado no site.
-window.GB_ANALYTICS_CONFIG = {
-  enabled: true,
-  campaigns: {
-    utm_source: ['linkedin'],
-    utm_medium: ['organic', 'cpc'],
-    utm_campaign: ['saas_b2b']
-  },
-  send(payload) {
-    // Encaminhar apenas payload ao adaptador aprovado.
-  }
-};
-// Após a escolha explícita do visitante:
-window.GBAnalytics.setConsent(true);
-// Ao retirar a escolha, desativar também qualquer SDK externo:
-window.GBAnalytics.setConsent(false);
+window.clarity('identify', visitorId, sessionId, page);
 ```
 
-O sinal Do Not Track e o Global Privacy Control impedem a coleta. Não há fila de eventos anteriores ao consentimento, persistência de respostas, identificador de visitante ou coleta de texto livre.
+- `visitorId`: ID aleatório de 128 bits com prefixo `gbv_`, salvo em `gb_clarity_visitor` no localStorage após consentimento. Permanece entre visitas no mesmo navegador até retirada da escolha ou limpeza de dados.
+- `sessionId`: ID aleatório de 128 bits com prefixo `gbs_`, salvo em `gb_clarity_session` no sessionStorage. Acompanha navegação e recargas na mesma aba; não corresponde necessariamente à duração de sessão calculada pelo Clarity.
+- `page`: nome aprovado do arquivo HTML; `/` usa `index.html`, caminhos desconhecidos usam `other`. Query string e hash não entram nesse ID.
+- `friendly-name`: omitido. Nome, telefone e mensagem do formulário não são usados como identificadores. Como não há login, os IDs não correlacionam uma pessoa entre dispositivos.
+
+Os eventos passam pelo filtro existente em `GBAnalytics` e chegam ao Clarity como `event`, com tags `page`, `origin`, `project_type` e UTMs aprovadas. O contrato abaixo descreve **apenas nossas chamadas personalizadas**: o SDK do Clarity também coleta navegação, URLs, referrer, interações e informações do dispositivo para suas gravações e mapas de calor. Não coloque dados pessoais em URLs. As listas de UTMs não filtram os metadados coletados automaticamente pelo SDK.
+
+Para integração com outro gestor de consentimento, use `GBAnalytics.setConsent(true)` após aceite e `GBAnalytics.setConsent(false)` ao retirar a escolha. A retirada de uma sessão ativa recarrega a página.
+
+Referências oficiais: [Identify API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/identify-api), [Client API](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-api), [ConsentV2](https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-consent-api-v2).
 
 ## Contrato fechado
 
@@ -55,4 +55,14 @@ Nunca entram nome, telefone, mensagem, respostas de estágio/usuários/obstácul
 - Contatos qualificados, reuniões, propostas e contratos em registro comercial separado. Definir qualificado como problema/objetivo claro, aderência ao serviço, responsável pela decisão e próximo passo viável; não enviar esse registro pessoal ao analytics.
 - Core Web Vitals em dados de campo (LCP, INP, CLS) e indexação das novas URLs no Search Console após uma publicação autorizada.
 
-Não calcular conversão por visitante com estes eventos isolados: não há pageviews nem identificadores. Percentuais representam apenas o tráfego que consentiu.
+Os identificadores e pageviews do Clarity permitem acompanhar jornadas no tráfego consentido. Cliques e eventos isolados não comprovam contato, qualificação ou venda. Percentuais representam apenas o tráfego que consentiu.
+
+## Verificação local
+
+Com o servidor estático rodando e Playwright disponível:
+
+```bash
+TEST_BASE_URL=http://127.0.0.1:8000 node tests/clarity.cjs
+```
+
+Use `NODE_PATH` e `BROWSER_PATH` conforme `docs/B2B-VALIDACAO.md`. O teste injeta um ID fictício somente na resposta local e simula o SDK: não envia eventos, gravações ou e-mails reais. Cobre as seis páginas, IDs estáveis, consentimento e retirada durante carregamento, sinais de privacidade, eventos filtrados, storage bloqueado e falhas do SDK. A conexão real ao painel precisa ser conferida depois de preencher o ID e publicar.

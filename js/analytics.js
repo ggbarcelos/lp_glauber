@@ -25,7 +25,10 @@
         track,
         // A consent manager calls this after explicit choice, and false on withdrawal.
         // No persistence or replay of interactions collected before consent.
-        setConsent(value) { consent = value === true && !privacySignal(); }
+        setConsent(value) {
+            consent = value === true && !privacySignal();
+            try { config.onConsent?.(config.enabled && consent, page); } catch { /* Optional SDK cannot interrupt the site. */ }
+        }
     });
     document.addEventListener('click', event => {
         const link = event.target.closest('a');

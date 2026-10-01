@@ -392,6 +392,26 @@ Object.assign(translations.en, {
 Object.assign(translations.pt, {terminal_label:'Exemplo de entrega de software', quick_contact:'Contato rápido'});
 Object.assign(translations.en, {terminal_label:'Software delivery example', quick_contact:'Quick contact'});
 
+// Clarity analytics consent, available on every portfolio page.
+Object.assign(translations.pt, {
+    analytics_title: 'Sua privacidade',
+    analytics_description: 'Com sua autorização, usamos Microsoft Clarity para analisar a navegação, gerar mapas de calor e gravações de sessão e melhorar o site. Usamos cookies e IDs aleatórios; o formulário de contato e o diagnóstico ficam mascarados nas gravações.',
+    analytics_privacy: 'Privacidade do Microsoft Clarity',
+    analytics_accept: 'Aceitar análise',
+    analytics_decline: 'Recusar análise',
+    analytics_preferences: 'Preferências de privacidade',
+    analytics_signal: 'Seu navegador sinalizou que não deseja rastreamento. A análise está desativada.'
+});
+Object.assign(translations.en, {
+    analytics_title: 'Your privacy',
+    analytics_description: 'With your permission, we use Microsoft Clarity to analyze browsing, create heatmaps and session recordings, and improve the site. We use cookies and random IDs; the contact form and discovery tool are masked in recordings.',
+    analytics_privacy: 'Microsoft Clarity privacy',
+    analytics_accept: 'Accept analytics',
+    analytics_decline: 'Decline analytics',
+    analytics_preferences: 'Privacy preferences',
+    analytics_signal: 'Your browser signaled that you do not want tracking. Analytics is disabled.'
+});
+
 function detectLang() {
     let saved;
     try { saved = localStorage.getItem('gb_lang'); } catch {}

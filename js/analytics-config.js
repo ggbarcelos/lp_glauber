@@ -1,7 +1,9 @@
-// Disabled until an approved adapter and campaign allowlists are supplied.
-// The adapter receives only the sanitized event below; never read the DOM/URL.
+// Copy the project ID from Clarity > Settings > Setup > Installation.
+// An empty ID keeps the SDK and consent interface disabled.
 window.GB_ANALYTICS_CONFIG = {
-    enabled: false,
-    send: null,
-    campaigns: { utm_source: [], utm_medium: [], utm_campaign: [] }
+    enabled: true,
+    clarityProjectId: '',
+    campaigns: { utm_source: [], utm_medium: [], utm_campaign: [] },
+    send(payload) { window.GBClarity?.track(payload); },
+    onConsent(value, page) { window.GBClarity?.setConsent(value, page); }
 };
