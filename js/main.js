@@ -187,3 +187,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// Business priorities: no projections or invented results, just a direction and measures.
+document.addEventListener('DOMContentLoaded', () => {
+    const choices = [...document.querySelectorAll('[data-impact]')];
+    const panel = document.querySelector('.impact-detail');
+    if (!choices.length || !panel) return;
+    const prefixes = { performance: 'perf', cost: 'cost', growth: 'growth' };
+    let selected = 'performance';
+    const render = () => {
+        const lang = document.documentElement.lang === 'en' ? 'en' : 'pt';
+        const t = window.__i18n?.translations[lang];
+        if (!t) return;
+        const prefix = prefixes[selected];
+        panel.querySelector('[data-impact-title]').setAttribute('data-i18n', `gb_${prefix}_title`);
+        panel.querySelector('[data-impact-copy]').setAttribute('data-i18n', `gb_${prefix}_copy`);
+        panel.querySelector('[data-impact-measures]').setAttribute('data-i18n', `gb_${prefix}_measures`);
+        panel.querySelector('[data-impact-title]').textContent = t[`gb_${prefix}_title`];
+        panel.querySelector('[data-impact-copy]').textContent = t[`gb_${prefix}_copy`];
+        panel.querySelector('[data-impact-measures]').textContent = t[`gb_${prefix}_measures`];
+        choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.impact === selected)));
+    };
+    choices.forEach(button => button.addEventListener('click', () => { selected = button.dataset.impact; render(); }));
+    document.addEventListener('languagechange', render);
+    render();
+});

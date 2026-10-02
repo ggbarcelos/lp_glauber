@@ -25,12 +25,12 @@
         'isPartOf': { '@id': baseUrl + '#website' },
         'about': { '@id': personId },
         'mainEntity': { '@id': baseUrl + '#software-service' },
-        'dateModified': '2026-10-01',
+        'dateModified': '2026-10-02',
         'primaryImageOfPage': {
           '@type': 'ImageObject',
-          'url': baseUrl + 'img/social/glauber-compartilhamento-2026-10-01-1200x628.jpg',
+          'url': baseUrl + 'img/social/glauber-portal-compartilhamento-2026-10-02-1200x627.jpg',
           'width': 1200,
-          'height': 628
+          'height': 627
         },
         'inLanguage': 'pt-BR'
       },

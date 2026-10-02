@@ -1,0 +1,38 @@
+[
+  {
+    "name": "linkedin",
+    "width": 1200,
+    "height": 627,
+    "original": [
+      1735,
+      907
+    ]
+  },
+  {
+    "name": "instagram",
+    "width": 1080,
+    "height": 1350,
+    "original": [
+      1122,
+      1402
+    ]
+  },
+  {
+    "name": "facebook-whatsapp",
+    "width": 1080,
+    "height": 1080,
+    "original": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "name": "status-stories",
+    "width": 1080,
+    "height": 1920,
+    "original": [
+      941,
+      1672
+    ]
+  }
+]
