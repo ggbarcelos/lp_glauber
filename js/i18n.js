@@ -1,5 +1,15 @@
 const translations = {
     pt: {
+        case_fernanda_tag: 'SAÚDE · WEB',
+        case_fernanda_category: 'WEB',
+        case_fernanda_outcome: 'Campanha digital com propósito',
+        case_fernanda_title: 'Dra. Fernanda Beltrão',
+        case_fernanda_desc: 'Landing page da campanha Botox Rosa, conectando a identidade da clínica ao Outubro Rosa. A experiência reúne o propósito da iniciativa, fotos e vídeos dos encontros, dúvidas frequentes e contato pelo WhatsApp em uma jornada clara para quem quer participar.',
+        case_fernanda_alt: 'Landing page da campanha Botox Rosa da Dra. Fernanda Beltrão',
+        case_fernanda_meta_page: 'LANDING PAGE',
+        case_fernanda_meta_campaign: 'CAMPANHA',
+        case_fernanda_meta_media: 'MULTIMÍDIA',
+        case_fernanda_link: 'Ver site da campanha',
         portal_footer_wa: 'Conversar pelo WhatsApp',
         portal_footer_kicker: "CONHECIMENTO CONECTADO",
         portal_footer_title: "Engenharia para<br><span>o que vem a seguir.</span>",
@@ -72,6 +82,16 @@ const translations = {
         err_name: 'Informe seu nome completo.', err_contact: 'Informe um número de WhatsApp válido, ex: (51) 98012-0387.', err_message: 'Conte um pouco mais sobre o que você quer construir.', err_fields: 'Revise os campos destacados e tente novamente.', sending: 'Enviando mensagem...', sent_ok: 'Mensagem enviada! Vou te chamar no WhatsApp em breve. 🚀', send_error: 'Não foi possível confirmar o envio. Seu contexto foi mantido. Você pode tentar novamente ou continuar pelos links abaixo.', send_btn_original: '<span>Enviar contexto</span><i class="fas fa-arrow-right" aria-hidden="true"></i>'
     },
     en: {
+        case_fernanda_tag: 'HEALTHCARE · WEB',
+        case_fernanda_category: 'WEB',
+        case_fernanda_outcome: 'A digital campaign with purpose',
+        case_fernanda_title: 'Dr. Fernanda Beltrão',
+        case_fernanda_desc: 'Landing page for the Botox Rosa campaign, connecting the clinic’s identity to Breast Cancer Awareness Month. The experience brings together the initiative’s purpose, photos and videos of participants, frequently asked questions and WhatsApp contact in a clear journey for people who want to take part.',
+        case_fernanda_alt: 'Botox Rosa campaign landing page for Dr. Fernanda Beltrão',
+        case_fernanda_meta_page: 'LANDING PAGE',
+        case_fernanda_meta_campaign: 'CAMPAIGN',
+        case_fernanda_meta_media: 'MULTIMEDIA',
+        case_fernanda_link: 'View campaign website',
         portal_footer_wa: 'Chat on WhatsApp',
         portal_footer_kicker: "CONNECTED KNOWLEDGE",
         portal_footer_title: "Engineering for<br><span>what comes next.</span>",

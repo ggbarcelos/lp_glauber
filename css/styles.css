@@ -742,6 +742,8 @@ picture { display: contents; }
 .portfolio-next .case-media { height: 300px; min-height: 300px; aspect-ratio: auto; border-bottom: 1px solid var(--line); }
 .portfolio-next .case-card--health .case-media img { width: 34%; height: 86%; object-fit: contain; }
 .portfolio-next .case-card--native .case-media img { width: 30%; height: 88%; object-fit: contain; }
+.portfolio-next .case-card--fernanda .case-media picture { display: contents; }
+.portfolio-next .case-card--fernanda .case-media img { width: 92%; height: 82%; object-fit: contain; transform: rotate(0); }
 .portfolio-next .case-media--orange { background: radial-gradient(ellipse at 50% 100%,#b95127,#37291e 70%); }
 .portfolio-next .case-media--green { background: radial-gradient(ellipse at 50% 100%,#328957,#192c23 70%); }
 .portfolio-next .case-label { font-size: 10px; }
