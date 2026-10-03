@@ -480,9 +480,12 @@ Object.assign(translations.en, {
 Object.assign(translations.pt, {terminal_label:'Exemplo de entrega de software', quick_contact:'Contato rápido'});
 Object.assign(translations.en, {terminal_label:'Software delivery example', quick_contact:'Quick contact'});
 
-// Clarity analytics consent, available on every portfolio page.
+// Analytics consent, available on every portfolio page.
 Object.assign(translations.pt, {
     analytics_title: 'Sua privacidade',
+    analytics_description_google: 'Com sua autorização, usamos Google Analytics para medir visitas e interações e melhorar o site. A análise usa cookies e não recebe os dados preenchidos no formulário de contato ou no diagnóstico.',
+    analytics_description_both: 'Com sua autorização, usamos Google Analytics para medir visitas e interações e Microsoft Clarity para mapas de calor e gravações de sessão. Usamos cookies e IDs aleatórios; o formulário de contato e o diagnóstico ficam mascarados nas gravações e seus campos não são enviados ao Google Analytics.',
+    analytics_privacy_google: 'Privacidade do Google Analytics',
     analytics_description: 'Com sua autorização, usamos Microsoft Clarity para analisar a navegação, gerar mapas de calor e gravações de sessão e melhorar o site. Usamos cookies e IDs aleatórios; o formulário de contato e o diagnóstico ficam mascarados nas gravações.',
     analytics_privacy: 'Privacidade do Microsoft Clarity',
     analytics_accept: 'Aceitar análise',
@@ -492,6 +495,9 @@ Object.assign(translations.pt, {
 });
 Object.assign(translations.en, {
     analytics_title: 'Your privacy',
+    analytics_description_google: 'With your permission, we use Google Analytics to measure visits and interactions and improve the site. Analytics uses cookies and does not receive information entered in the contact form or discovery tool.',
+    analytics_description_both: 'With your permission, we use Google Analytics to measure visits and interactions and Microsoft Clarity for heatmaps and session recordings. We use cookies and random IDs; the contact form and discovery tool are masked in recordings and their fields are not sent to Google Analytics.',
+    analytics_privacy_google: 'Google Analytics privacy',
     analytics_description: 'With your permission, we use Microsoft Clarity to analyze browsing, create heatmaps and session recordings, and improve the site. We use cookies and random IDs; the contact form and discovery tool are masked in recordings.',
     analytics_privacy: 'Microsoft Clarity privacy',
     analytics_accept: 'Accept analytics',

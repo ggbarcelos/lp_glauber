@@ -209,6 +209,19 @@ Testado e funcional em:
 
 ## 🚀 Deploy
 
+### Google Analytics 4
+
+1. No Google Analytics, crie ou selecione a propriedade e o fluxo Web de `https://glauberbarcelos.com.br` em **Administrador → Fluxos de dados**.
+2. Copie o **ID de medição** (`G-XXXXXXXXXX`) para `googleMeasurementId` em `js/analytics-config.js`. O ID é público; não use uma chave de API.
+3. Publique os arquivos no GitHub Pages. Todas as seis páginas carregam a integração compartilhada.
+4. Abra o site, aceite a análise no aviso de privacidade e confira **Relatórios → Tempo real**. Sem consentimento, com recusa ou com sinal de não rastreamento do navegador, a tag não é carregada.
+
+São enviados `page_view`, `cta_click`, `whatsapp_click`, `diagnostic_start`, `diagnostic_complete` e `form_submit_success`. Os eventos de interação usam os parâmetros `page`, `origin` e `project_type`; cadastre dimensões personalizadas com escopo de evento para consultá-los nos relatórios. Para medir contatos como resultados, marque `form_submit_success` e/ou `whatsapp_click` como eventos principais no painel do GA4.
+
+Os campos do formulário e do diagnóstico não são enviados pela integração. URLs enviadas excluem query strings e fragmentos; UTMs personalizadas só são enviadas quando os códigos estão na lista `campaigns` da configuração. Revogar o consentimento recarrega a página para interromper a tag. Um ID vazio mantém esse provedor desativado. Microsoft Clarity continua opcional, com configuração independente.
+
+Referências: [instalação da tag](https://developers.google.com/tag-platform/gtagjs), [consentimento](https://developers.google.com/tag-platform/security/guides/consent).
+
 A página está pronta para ser deployada em qualquer hosting estático:
 - GitHub Pages
 - Netlify

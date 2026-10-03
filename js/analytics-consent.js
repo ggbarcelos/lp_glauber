@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     'use strict';
-    if (!window.GBClarity?.configured() || !window.GBAnalytics || !window.__i18n) return;
+    const hasGoogle = window.GBGoogleAnalytics?.configured() === true;
+    const hasClarity = window.GBClarity?.configured() === true;
+    if ((!hasGoogle && !hasClarity) || !window.GBAnalytics || !window.__i18n) return;
+    const privacySignal = () => navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true;
     const consentKey = 'gb_analytics_consent';
     const readChoice = () => { try { return localStorage.getItem(consentKey); } catch { return null; } };
     const saveChoice = value => { try { localStorage.setItem(consentKey, value); } catch {} };
     let choice = readChoice();
-    if (window.GBClarity.privacySignal()) {
+    if (privacySignal()) {
         choice = 'denied';
         saveChoice(choice);
     }
@@ -15,8 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     panel.className = 'analytics-consent';
     panel.setAttribute('aria-labelledby', 'analytics-consent-title');
     panel.innerHTML = `<h2 id="analytics-consent-title" data-i18n="analytics_title"></h2>
-        <p data-i18n="analytics_description"></p>
-        <a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer" data-i18n="analytics_privacy"></a>
+        <p data-i18n="${hasGoogle ? (hasClarity ? 'analytics_description_both' : 'analytics_description_google') : 'analytics_description'}"></p>
+        ${hasGoogle ? '<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" data-i18n="analytics_privacy_google"></a>' : ''}
+        ${hasClarity ? '<a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer" data-i18n="analytics_privacy"></a>' : ''}
         <p class="analytics-signal" data-i18n="analytics_signal" hidden></p>
         <div class="analytics-actions"><button type="button" data-analytics-choice="granted" data-i18n="analytics_accept"></button>
         <button type="button" data-analytics-choice="denied" data-i18n="analytics_decline"></button></div>`;
@@ -31,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function render() {
         const t = window.__i18n.translations[document.documentElement.lang === 'en' ? 'en' : 'pt'];
         for (const element of [...panel.querySelectorAll('[data-i18n]'), preferences]) element.textContent = t[element.dataset.i18n];
-        const blocked = window.GBClarity.privacySignal();
+        const blocked = privacySignal();
         panel.querySelector('[data-analytics-choice="granted"]').disabled = blocked;
         panel.querySelector('.analytics-signal').hidden = !blocked;
     }
