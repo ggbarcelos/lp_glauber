@@ -1,0 +1,32 @@
+{
+  "conditions": "IAB Chromium, localhost, 390x844, warm cache, no network or CPU throttle; initial observation after load, mock EmailJS and telemetry. LCP/CLS are provisional snapshots, not field Core Web Vitals.",
+  "runs": [
+    {
+      "events": [],
+      "sends": 0,
+      "lcp": 144,
+      "cls": 0,
+      "fcp": 144,
+      "dom": 104.59999990463257,
+      "localBytes": 114642
+    },
+    {
+      "events": [],
+      "sends": 0,
+      "lcp": 112,
+      "cls": 0,
+      "fcp": 112,
+      "dom": 62.10000014305115,
+      "localBytes": 0
+    },
+    {
+      "events": [],
+      "sends": 0,
+      "lcp": 104,
+      "cls": 0,
+      "fcp": 104,
+      "dom": 59.200000047683716,
+      "localBytes": 0
+    }
+  ]
+}

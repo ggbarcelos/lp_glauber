@@ -21,10 +21,13 @@
 
 ## Páginas oficiais
 
+- [Desenvolvimento de SaaS e MVP B2B](https://glauberbarcelos.com.br/desenvolvimento-saas.html)
+- [Integrações e automações de processos com IA](https://glauberbarcelos.com.br/desenvolvimento-web.html#automacoes)
+
 - [Site principal](https://glauberbarcelos.com.br/)
-- [Desenvolvimento Web .NET](https://glauberbarcelos.com.br/desenvolvimento-web.html)
-- [Aplicativos Android e iOS com .NET MAUI](https://glauberbarcelos.com.br/desenvolvimento-mobile-desktop.html)
-- [Tech Lead e Engenharia de Software sob Demanda](https://glauberbarcelos.com.br/dev-as-a-service.html)
+- [Páginas e sistemas web sob medida](https://glauberbarcelos.com.br/desenvolvimento-web.html)
+- [Desenvolvimento de aplicativos para empresas](https://glauberbarcelos.com.br/desenvolvimento-mobile-desktop.html)
+- [Consultoria e arquitetura de software](https://glauberbarcelos.com.br/dev-as-a-service.html)
 - [Perfil profissional no LinkedIn](https://www.linkedin.com/in/glauber-gomes-barcelos/)
 - [GitHub](https://github.com/ggbarcelos)
 

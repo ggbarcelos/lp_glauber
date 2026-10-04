@@ -82,6 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = contactForm?.querySelector('button[type="submit"]');
     const fallback = document.getElementById('formFallback');
     let submitting = false;
+    let formStarted = false;
+    contactForm?.addEventListener('input', () => {
+        if (formStarted) return;
+        formStarted = true;
+        window.GBAnalytics?.track('form_start', 'contact');
+    });
+    contactForm?.addEventListener('change', () => {
+        if (formStarted) return;
+        formStarted = true;
+        window.GBAnalytics?.track('form_start', 'contact');
+    });
     // Progressive enhancement: no-JS users have direct contact links, no accidental GET with PII.
     if (contactFields) contactFields.disabled = false;
     const showFallback = () => { if (fallback) fallback.hidden = false; };
@@ -138,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setFieldState(contactField, errors.contact);
         setFieldState(messageField, errors.message);
         if (Object.values(errors).some(Boolean)) {
+            window.GBAnalytics?.track('form_submit_error', 'contact');
             showFormStatus(t.err_fields, 'error');
             [nameField, contactField, messageField].find(field => field?.classList.contains('is-invalid'))?.focus();
             return;
@@ -174,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.GBAnalytics?.track('form_submit_success', 'contact', projectType);
             contactForm.reset();
         } catch {
+            window.GBAnalytics?.track('form_submit_error', 'contact', projectType);
             showFormStatus(getTranslations().send_error, 'error');
             showFallback();
         } finally {

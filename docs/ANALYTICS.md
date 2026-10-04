@@ -1,6 +1,6 @@
-# Microsoft Clarity, eventos B2B e privacidade
+# GA4, Microsoft Clarity, eventos B2B e privacidade
 
-O site integra o Microsoft Clarity pelas APIs `identify`, `set`, `event` e `consentv2`. A configuração fica em `js/analytics-config.js`. Enquanto `clarityProjectId` estiver vazio, nenhum SDK de analytics é carregado e a interface de consentimento não aparece.
+O site integra o Microsoft Clarity pelas APIs `identify`, `set`, `event` e `consentv2`. A configuração fica em `js/analytics-config.js`. O GA4 utiliza `G-TJQEC00DF9` e carrega somente após consentimento. O `clarityProjectId` vazio desativa apenas o Clarity; o aviso de privacidade continua disponível para o GA4.
 
 ## Ativação
 
@@ -36,7 +36,7 @@ Referências oficiais: [Identify API](https://learn.microsoft.com/en-us/clarity/
 
 | Campo | Valores |
 | --- | --- |
-| `event` | `cta_click`, `diagnostic_start`, `diagnostic_complete`, `whatsapp_click`, `form_submit_success` |
+| `event` | `cta_click`, `diagnostic_start`, `diagnostic_complete`, `whatsapp_click`, `email_click`, `form_start`, `form_submit_success`, `form_submit_error` |
 | `page` | Um dos seis nomes de páginas conhecidas; caminhos desconhecidos viram `other` |
 | `origin` | `hero`, `navigation`, `services`, `cases`, `diagnostic`, `contact`, `floating`, `footer`, `content` |
 | `type` | `saas`, `app`, `architecture`, `ai`, `web`, `consulting`, `unspecified` |
@@ -44,7 +44,7 @@ Referências oficiais: [Identify API](https://learn.microsoft.com/en-us/clarity/
 
 Nunca entram nome, telefone, mensagem, respostas de estágio/usuários/obstáculo, URL completa, query arbitrária, hash, referrer ou texto do WhatsApp. `utm_term` e `utm_content` são ignorados. UTMs aprovadas são preservadas entre páginas internas e nos eventos, nunca anexadas ao WhatsApp ou EmailJS. A comparação exata é necessária porque mesmo um slug aparentemente válido pode conter informação pessoal.
 
-`diagnostic_start` ocorre ao iniciar; `diagnostic_complete` uma vez por abertura da página, na primeira conclusão. Revisar respostas não aumenta conclusões. `form_submit_success` exige resolução bem-sucedida do EmailJS. Cliques em CTAs de WhatsApp podem gerar os dois eventos de clique, intencionalmente. Esses eventos não comprovam que uma mensagem foi enviada no WhatsApp nem que o lead é qualificado.
+`diagnostic_start` ocorre ao iniciar; `diagnostic_complete` uma vez por abertura da página, na primeira conclusão. Revisar respostas não aumenta conclusões. `form_start` ocorre na primeira edição de um campo. `form_submit_error` cobre validação inválida e falha do serviço. `form_submit_success` exige resolução bem-sucedida do EmailJS e representa aceitação pelo serviço, sem confirmar entrega na caixa de entrada. Cliques em CTAs de WhatsApp podem gerar os dois eventos de clique, intencionalmente. Esses eventos não comprovam que uma mensagem foi enviada no WhatsApp nem que o lead é qualificado.
 
 ## Métricas a acompanhar após a ativação
 
@@ -66,3 +66,11 @@ TEST_BASE_URL=http://127.0.0.1:8000 node tests/clarity.cjs
 ```
 
 Use `NODE_PATH` e `BROWSER_PATH` conforme `docs/B2B-VALIDACAO.md`. O teste injeta um ID fictício somente na resposta local e simula o SDK: não envia eventos, gravações ou e-mails reais. Cobre as seis páginas, IDs estáveis, consentimento e retirada durante carregamento, sinais de privacidade, eventos filtrados, storage bloqueado e falhas do SDK. A conexão real ao painel precisa ser conferida depois de preencher o ID e publicar.
+
+## Validar GA4 após uma publicação autorizada
+
+Abra o site pelo [Tag Assistant](https://tagassistant.google.com/), aceite análise e acompanhe os eventos no [DebugView](https://support.google.com/analytics/answer/7201382?hl=pt-BR). Confira `whatsapp_click`, `email_click`, `form_start`, `form_submit_success`, `form_submit_error`, `diagnostic_start` e `diagnostic_complete`, com `page`, `origin` e `project_type`. Testes de sucesso e erro de envio devem continuar usando o servidor simulado, salvo autorização específica para enviar uma mensagem real.
+
+Para comparar página, posição e serviço em relatórios, registre dimensões personalizadas de escopo evento para `page`, `origin` e `project_type`, conforme a [documentação dos parâmetros do GA4](https://developers.google.com/analytics/devguides/collection/ga4/event-parameters). Clique no WhatsApp é intenção; contato confirmado deve ser registrado separadamente. Recusar ou retirar consentimento deve impedir novos eventos.
+
+Teste isolado de contato e privacidade: `node tests/contact-analytics.cjs`. Servidor opcional para testes visuais com EmailJS e telemetry simulados: `python3 tests/validation_server.py`, em `http://127.0.0.1:8001/`. `?mock=failure` simula falha e `?mock=missing` simula SDK indisponível. A instrumentação de desempenho desse servidor é exclusiva de teste.
