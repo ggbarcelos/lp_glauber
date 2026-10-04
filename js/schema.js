@@ -20,12 +20,12 @@
         '@type': 'WebPage',
         '@id': baseUrl + '#webpage',
         'url': baseUrl,
-        'name': 'Desenvolvimento de SaaS e aplicativos para empresas | Glauber Barcelos',
-        'description': 'Desenvolvimento de SaaS, aplicativos Android e iOS e consultoria técnica para empresas. Defina seu MVP, integrações e próximos passos com Glauber Barcelos.',
+        'name': 'Software sob medida e IA para empresas | Glauber Barcelos',
+        'description': 'Desenvolvo sistemas, aplicativos e automações com IA para empresas. Mais de 20 anos de experiência. Converse comigo sobre seu projeto.',
         'isPartOf': { '@id': baseUrl + '#website' },
         'about': { '@id': personId },
         'mainEntity': { '@id': baseUrl + '#software-service' },
-        'dateModified': '2026-10-02',
+        'dateModified': '2026-10-03',
         'primaryImageOfPage': {
           '@type': 'ImageObject',
           'url': baseUrl + 'img/social/glauber-portal-compartilhamento-2026-10-02-1200x627.jpg',
@@ -111,15 +111,17 @@
               'itemOffered': {
                 '@type': 'Service',
                 'name': 'Aplicativos Android e iOS',
-                'description': 'Aplicativos mobile multiplataforma com integrações e publicação nas lojas.'
+                'description': 'Aplicativos para clientes e equipes, com integrações e preparação para distribuição conforme o escopo.',
+                'url': baseUrl + 'desenvolvimento-mobile-desktop.html'
               }
             },
             {
               '@type': 'Offer',
               'itemOffered': {
                 '@type': 'Service',
-                'name': 'Inteligência Artificial Aplicada',
-                'description': 'Automação, assistentes, busca inteligente e integração de IA ao produto.'
+                'name': 'Integrações e automações de processos com IA',
+                'description': 'Integrações, automações e assistentes para tarefas definidas com avaliação e revisão humana.',
+                'url': baseUrl + 'desenvolvimento-web.html#automacoes'
               }
             },
             {
@@ -127,7 +129,8 @@
               'itemOffered': {
                 '@type': 'Service',
                 'name': 'Arquitetura, APIs e Consultoria Técnica',
-                'description': 'Diagnóstico, roadmap, revisão de arquitetura, APIs e liderança técnica sob demanda.'
+                'description': 'Diagnóstico de arquitetura e performance, integrações e plano de ação conforme o escopo.',
+                'url': baseUrl + 'dev-as-a-service.html'
               }
             }
           ]

@@ -48,3 +48,31 @@ document.addEventListener('DOMContentLoaded', () => {
     addEventListener('resize', scheduleProgress, { passive: true });
     updateProgress();
 });
+
+// Keep the shortcut clear of controls at every size, and mobile reading content.
+document.addEventListener('DOMContentLoaded', () => {
+    const floating = document.querySelector('.whatsapp-float');
+    if (!floating) return;
+    let pending = false;
+    const update = () => {
+        pending = false;
+        const mobile = matchMedia('(max-width: 700px)').matches;
+        const box = floating.getBoundingClientRect();
+        const blocked = document.body.classList.contains('privacy-panel-open') || document.body.classList.contains('menu-open');
+        const protectedContent = mobile
+            ? 'main p, main h1, main h2, main h3, main a, main button, main input, main textarea, main select, main img, header p, header h1, header a, header button, header .hero-bottom, header .delivery-bottom, footer p, footer h2, footer h3, footer a, footer button'
+            : 'main a, main button, main input, main textarea, main select, header a, header button, footer a, footer button';
+        const intersects = [...document.querySelectorAll(protectedContent)].some(element => {
+            const rect = element.getBoundingClientRect();
+            return rect.width > 0 && rect.height > 0 && rect.left < box.right && rect.right > box.left && rect.top < box.bottom && rect.bottom > box.top;
+        });
+        document.body.classList.toggle('floating-obstructed', blocked || intersects);
+    };
+    const schedule = () => { if (!pending) { pending = true; requestAnimationFrame(update); } };
+    addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', schedule, { passive: true });
+    document.addEventListener('focusin', schedule);
+    document.addEventListener('click', schedule);
+    document.addEventListener('languagechange', schedule);
+    update();
+});

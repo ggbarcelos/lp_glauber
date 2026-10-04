@@ -3,6 +3,11 @@
 @font-face { font-family: 'GB Mono'; src: url('../img/fonts/ibm-plex-mono.woff2') format('woff2'); font-weight: 400 500; font-style: normal; font-display: swap; }
 
 :root {
+    --future-cyan: #80f5ed;
+    --future-violet: #b59aff;
+    --future-night: #060913;
+    --future-panel: #0d1425;
+    --future-border: rgba(142, 175, 235, .22);
     --primary: #d4fc68;
     --primary-dark: #b6df48;
     --electric: #4667ff;

@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function show(open) {
         panel.hidden = !open;
+        document.body.classList.toggle('privacy-panel-open', open);
         preferences.setAttribute('aria-expanded', String(open));
     }
     panel.addEventListener('click', event => {
