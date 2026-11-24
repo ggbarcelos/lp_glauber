@@ -9,8 +9,8 @@ window.GB_ANALYTICS_CONFIG = {
         window.GBGoogleAnalytics?.track(payload);
         window.GBClarity?.track(payload);
     },
-    onConsent(value, page) {
-        window.GBGoogleAnalytics?.setConsent(value, page);
+    onAnalyticsEnabled(value, page) {
+        window.GBGoogleAnalytics?.setEnabled(value, page);
         window.GBClarity?.setConsent(value, page);
     }
 };

@@ -3,70 +3,94 @@ document.addEventListener('DOMContentLoaded', () => {
     const hasGoogle = window.GBGoogleAnalytics?.configured() === true;
     const hasClarity = window.GBClarity?.configured() === true;
     if ((!hasGoogle && !hasClarity) || !window.GBAnalytics || !window.__i18n) return;
+
+    const optOutKey = 'gb_analytics_opt_out';
+    const legacyChoiceKey = 'gb_analytics_consent';
+    const optOutCookie = 'gb_analytics_opt_out';
     const privacySignal = () => navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true;
-    const consentKey = 'gb_analytics_consent';
-    const readChoice = () => { try { return localStorage.getItem(consentKey); } catch { return null; } };
-    const saveChoice = value => { try { localStorage.setItem(consentKey, value); } catch {} };
-    let choice = readChoice();
-    if (privacySignal()) {
-        choice = 'denied';
-        saveChoice(choice);
+
+    function readCookie() {
+        try {
+            const item = document.cookie.split(';').map(value => value.trim()).find(value => value.startsWith(optOutCookie + '='));
+            return item ? decodeURIComponent(item.slice(optOutCookie.length + 1)) : null;
+        } catch {
+            return null;
+        }
     }
 
-    const panel = document.createElement('section');
-    panel.id = 'analytics-consent-panel';
-    panel.className = 'analytics-consent';
-    panel.setAttribute('aria-labelledby', 'analytics-consent-title');
-    panel.innerHTML = `<h2 id="analytics-consent-title" data-i18n="analytics_title"></h2>
-        <p data-i18n="${hasGoogle ? (hasClarity ? 'analytics_description_both' : 'analytics_description_google') : 'analytics_description'}"></p>
-        ${hasGoogle ? '<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" data-i18n="analytics_privacy_google"></a>' : ''}
-        ${hasClarity ? '<a href="https://privacy.microsoft.com/privacystatement" target="_blank" rel="noopener noreferrer" data-i18n="analytics_privacy"></a>' : ''}
-        <p class="analytics-signal" data-i18n="analytics_signal" hidden></p>
-        <div class="analytics-actions"><button type="button" data-analytics-choice="granted" data-i18n="analytics_accept"></button>
-        <button type="button" data-analytics-choice="denied" data-i18n="analytics_decline"></button></div>`;
-    document.body.appendChild(panel);
-    const preferences = document.createElement('button');
-    preferences.type = 'button';
-    preferences.className = 'analytics-preferences';
-    preferences.dataset.i18n = 'analytics_preferences';
-    preferences.setAttribute('aria-controls', panel.id);
-    (document.querySelector('footer') || document.body).appendChild(preferences);
+    function readOptOut() {
+        try {
+            const saved = localStorage.getItem(optOutKey);
+            if (saved === '1') return true;
+            if (saved === '0') return false;
+        } catch {}
+        if (readCookie() === '1') return true;
+        try { return localStorage.getItem(legacyChoiceKey) === 'denied'; } catch { return false; }
+    }
+
+    function saveOptOut(value) {
+        try {
+            localStorage.setItem(optOutKey, value ? '1' : '0');
+            localStorage.setItem(legacyChoiceKey, value ? 'denied' : 'granted');
+        } catch {}
+        try {
+            if (value) {
+                document.cookie = optOutCookie + '=1; Max-Age=31536000; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+            } else {
+                document.cookie = optOutCookie + '=; Max-Age=0; Path=/; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+            }
+        } catch {}
+    }
+
+    let optedOut = privacySignal() || readOptOut();
+    const row = document.createElement('div');
+    row.className = 'analytics-footer-row';
+    row.innerHTML = '<p class="analytics-footer-notice"></p>' +
+        '<div class="analytics-footer-actions">' +
+        '<a href="privacidade.html" class="analytics-details"></a>' +
+        '<button type="button" class="analytics-toggle" aria-pressed="false"></button></div>' +
+        '<p class="analytics-signal" role="status" hidden></p>' +
+        '<span class="analytics-action-status" role="status" aria-live="polite" hidden></span>';
+    const footer = document.querySelector('footer');
+    const footerShell = footer?.querySelector('.shell') || footer;
+    (footerShell || document.body).appendChild(row);
+
+    const notice = row.querySelector('.analytics-footer-notice');
+    const details = row.querySelector('.analytics-details');
+    const toggle = row.querySelector('.analytics-toggle');
+    const signal = row.querySelector('.analytics-signal');
+    const status = row.querySelector('.analytics-action-status');
 
     function render() {
         const t = window.__i18n.translations[document.documentElement.lang === 'en' ? 'en' : 'pt'];
-        for (const element of [...panel.querySelectorAll('[data-i18n]'), preferences]) element.textContent = t[element.dataset.i18n];
-        const blocked = privacySignal();
-        panel.querySelector('[data-analytics-choice="granted"]').disabled = blocked;
-        panel.querySelector('.analytics-signal').hidden = !blocked;
+        const noticeKey = hasGoogle ? (hasClarity ? 'analytics_notice_both' : 'analytics_notice_google') : 'analytics_notice_clarity';
+        notice.textContent = privacySignal() ? '' : t[optedOut ? 'analytics_notice_opted_out' : noticeKey];
+        details.textContent = t.analytics_details;
+        toggle.textContent = t[optedOut ? 'analytics_enable' : 'analytics_disable'];
+        toggle.disabled = privacySignal();
+        toggle.setAttribute('aria-pressed', String(!optedOut));
+        signal.textContent = t.analytics_signal;
+        signal.hidden = !privacySignal();
+        status.textContent = t[optedOut ? 'analytics_status_disabled' : 'analytics_status_enabled'];
     }
-    function show(open) {
-        panel.hidden = !open;
-        document.body.classList.toggle('privacy-panel-open', open);
-        preferences.setAttribute('aria-expanded', String(open));
-    }
-    panel.addEventListener('click', event => {
-        const button = event.target.closest('[data-analytics-choice]');
-        if (!button) return;
-        choice = button.dataset.analyticsChoice;
-        saveChoice(choice);
-        show(false);
-        preferences.focus({ preventScroll: true });
-        window.GBAnalytics.setConsent(choice === 'granted');
-    });
-    preferences.addEventListener('click', () => {
+
+    toggle.addEventListener('click', () => {
+        if (privacySignal()) return;
+        optedOut = !optedOut;
+        saveOptOut(optedOut);
         render();
-        show(panel.hidden);
-        if (!panel.hidden) panel.querySelector('[data-analytics-choice="denied"]').focus();
+        status.hidden = false;
+        window.GBAnalytics.setEnabled(!optedOut);
     });
+
     document.addEventListener('languagechange', render);
-    // Keep other open tabs in sync, particularly when consent is withdrawn.
     window.addEventListener('storage', event => {
-        if (event.key !== consentKey && event.key !== null) return;
-        choice = readChoice();
-        show(choice !== 'granted' && choice !== 'denied');
-        window.GBAnalytics.setConsent(choice === 'granted');
+        if (event.key !== optOutKey && event.key !== legacyChoiceKey && event.key !== null) return;
+        optedOut = privacySignal() || readOptOut();
+        render();
+        window.GBAnalytics.setEnabled(!optedOut);
     });
+
     render();
-    show(choice !== 'granted' && choice !== 'denied');
-    window.GBAnalytics.setConsent(choice === 'granted');
+    window.GBAnalytics.setEnabled(!optedOut);
 });

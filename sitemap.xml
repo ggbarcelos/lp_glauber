@@ -32,4 +32,10 @@
     <loc>https://glauberbarcelos.com.br/case-native-ip.html</loc>
     <lastmod>2026-10-03</lastmod>
   </url>
+  <url>
+    <loc>https://glauberbarcelos.com.br/privacidade.html</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
 </urlset>

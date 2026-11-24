@@ -12,7 +12,7 @@
         try { window.gtag?.(...args); } catch { /* Analytics cannot interrupt contact. */ }
     }
 
-    function setConsent(value, page) {
+    function setEnabled(value, page) {
         const granted = value === true && configured() && !privacySignal();
         window[`ga-disable-${id}`] = !granted;
         if (!granted) {
@@ -75,5 +75,5 @@
         call('event', event, { ...parameters, project_type: type, send_to: id });
     }
 
-    window.GBGoogleAnalytics = Object.freeze({ configured, privacySignal, setConsent, track });
+    window.GBGoogleAnalytics = Object.freeze({ configured, privacySignal, setEnabled, track });
 })();
