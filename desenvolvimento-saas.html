@@ -56,19 +56,17 @@
         .service-nav .nav-links { flex-wrap:wrap; gap:12px 20px; } .service-nav a { min-height:44px; display:inline-flex; align-items:center; }
         @media(max-width:640px) { .service-nav .nav-inner { flex-wrap:wrap; gap:8px; padding-block:10px; } .service-nav .nav-links { width:100%; gap:6px 16px; } .service-nav .nav-links a:not(.nav-cta) { display:inline-flex; } .service-nav { position:relative; } }
 
-/* Shared Clarity consent controls; service pages keep their own inline styles. */
-.analytics-consent { position: fixed; z-index: 1100; bottom: 20px; left: 50%; transform: translateX(-50%); width: min(620px, calc(100% - 32px)); max-height: calc(100vh - 40px); overflow-y: auto; padding: 22px; border: 1px solid var(--line-strong, var(--line)); border-radius: 16px; background: var(--surface); color: var(--text); box-shadow: 0 12px 48px rgba(0, 0, 0, .4); }
-.analytics-consent[hidden], .analytics-consent [hidden] { display: none; }
-.analytics-consent h2 { margin: 0 0 8px; font-size: 1.1rem; }
-.analytics-consent p { margin: 0 0 12px; font-size: .875rem; }
-.analytics-consent a { color: var(--mint); font-size: .875rem; text-decoration: underline; }
-.analytics-consent .analytics-signal { margin-top: 12px; }
-.analytics-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
-.analytics-actions button, .analytics-preferences { min-height: 44px; padding: 10px 16px; border: 1px solid var(--line-strong, var(--line)); border-radius: 8px; color: var(--text); background: var(--ink); font: inherit; font-size: .875rem; cursor: pointer; }
-.analytics-actions button:hover, .analytics-preferences:hover { border-color: var(--mint); }
-.analytics-actions button:disabled { opacity: .5; cursor: default; }
-.analytics-preferences { display: block; margin: 16px auto; }
-.analytics-consent a:focus-visible, .analytics-actions button:focus-visible, .analytics-preferences:focus-visible { outline: 2px solid var(--mint); outline-offset: 4px; }
+/* Small privacy notice and measurement control in the footer. */
+.analytics-footer-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 24px; padding:18px 0 20px; border-top:1px solid var(--line-strong,var(--line)); color:var(--text-muted,var(--muted,#a9b8d1)); font-size:.82rem; line-height:1.65; }
+.analytics-footer-notice { flex:1 1 460px; max-width:850px; margin:0; color:inherit; }
+.analytics-footer-actions { display:flex; flex:0 0 auto; align-items:center; flex-wrap:wrap; gap:8px 18px; }
+.analytics-details { display:inline-flex; min-height:44px; align-items:center; color:var(--mint,#80f5ed); text-decoration:underline; text-underline-offset:3px; }
+.analytics-toggle { min-height:44px; padding:0 13px; border:1px solid var(--line-strong,var(--line)); border-radius:7px; color:var(--mint,#80f5ed); background:transparent; font:inherit; cursor:pointer; }
+.analytics-toggle:hover { border-color:var(--mint,#80f5ed); }
+.analytics-toggle:disabled { opacity:.55; cursor:default; }
+.analytics-footer-row :is(a,button):focus-visible { outline:2px solid var(--mint,#80f5ed); outline-offset:4px; }
+.analytics-signal,.analytics-action-status { flex-basis:100%; margin:0; font-size:.82rem; }
+.analytics-signal[hidden],.analytics-action-status[hidden] { display:none!important; }
 
 /* Readable service contact and breadcrumbs; keep styling local to this page. */
 .breadcrumbs { padding-top:20px; color:var(--muted); font-size:.85rem; display:flex; flex-wrap:wrap; gap:10px; }
@@ -200,7 +198,7 @@ body { overflow-x:clip; }
 .future-service #contato.commercial > .shell { padding:42px; border:1px solid #9faff25c; border-radius:18px; background:linear-gradient(120deg,#1d2d51,#17223b); }.future-service #contato.commercial > .shell::before { display:none; }
 .future-service .faq details { border:1px solid #8aa6df38; border-radius:12px; padding:19px 23px; margin-top:12px; background:#111b2e; }.future-service .faq summary { min-height:30px; color:#e3edff; font-size:.94rem; cursor:pointer; }.future-service .faq details[open] { border-color:#80f5ed66; }.future-service .faq p { margin:17px 0 0; }
 .future-service .commercial figure { margin:0; padding:25px; border:1px solid #889fe449; border-radius:16px; background:#101a2e; display:grid; justify-items:center; gap:18px; }.future-service .commercial figure img { max-width:100%; height:auto; border-radius:6px; }
-.future-service .portal-footer { background:radial-gradient(ellipse at 90% 0,#43488b2e,transparent 60%),#080c18; border-color:#8da6e440; }.future-service .portal-footer-heading h2 { font-size:clamp(2.2rem,4.5vw,4rem); }.future-service .portal-footer-heading h2 span { color:var(--future-cyan); }.future-service .portal-footer::before { border-radius:50%; }.future-service .analytics-consent { border-radius:16px; background:#121c30; border-color:#9dbaff66; }
+.future-service .portal-footer { background:radial-gradient(ellipse at 90% 0,#43488b2e,transparent 60%),#080c18; border-color:#8da6e440; }.future-service .portal-footer-heading h2 { font-size:clamp(2.2rem,4.5vw,4rem); }.future-service .portal-footer-heading h2 span { color:var(--future-cyan); }.future-service .portal-footer::before { border-radius:50%; }
 @media(max-width:1100px) { .future-service { --shell:calc(100% - 64px); }.future-service .service-nav .nav-links { gap:14px; }.future-service .hero-layout,.future-service-layout { gap:32px; }.future-service .hero h1 { font-size:3.2rem; }.future-service .hero .actions { align-items:flex-start; }.future-service .future-service-visual { min-height:330px; } }
 @media(max-width:900px) {
  .future-service .service-nav { top:12px; margin-top:12px; width:calc(100% - 32px); }.future-service .nav-inner { width:calc(100% - 30px); min-height:64px; }.future-service .brand img { width:132px; }
@@ -247,12 +245,12 @@ body { overflow-x:clip; }
             <div class="portal-footer-base"><p data-i18n="footer_copy">© 2026 Glauber Barcelos. Engenharia de software para produtos que avançam.</p><span data-i18n="portal_footer_note">Feito com intenção. Construído para evoluir.</span><span class="footer-signal" aria-hidden="true">↗</span></div>
         </div>
     </footer>
-<script src="js/i18n.js?v=future-20261003"></script>
-<script src="js/analytics-config.js?v=ga4-20261003"></script>
-    <script src="js/google-analytics.js?v=ga4-20261003"></script>
+<script src="js/i18n.js?v=privacy-20261124"></script>
+<script src="js/analytics-config.js?v=privacy-20261124"></script>
+    <script src="js/google-analytics.js?v=privacy-20261124"></script>
 <script src="js/clarity.js"></script>
-<script src="js/analytics.js?v=seo-20261003"></script>
+<script src="js/analytics.js?v=privacy-20261124"></script>
 <script src="js/contact.js?v=future-20261003"></script>
-<script src="js/analytics-consent.js?v=seo-20261003"></script>
+<script src="js/analytics-consent.js?v=privacy-20261124"></script>
 </body>
 </html>

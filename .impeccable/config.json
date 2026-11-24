@@ -1,0 +1,18 @@
+{
+  "buildPath": "comp",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "css/portal.css"
+        ],
+        "createdAt": "2026-11-24T15:07:55.613Z",
+        "reason": "Agent: existing gradient titles are part of the portfolio visual identity and are unrelated to the new privacy page."
+      }
+    ]
+  }
+}
